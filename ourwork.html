@@ -1,0 +1,2634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="https://res.cloudinary.com/dekdxx6yx/image/upload/v1760854271/favcon003_vgothc.png">
+    <title>Istazz Media | Pinterest Gallery</title>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Neue', 'Comic Sans MS', 'Comic Sans', cursive !important;
+        }
+
+        body {
+            font-family: 'Comic Neue', 'Comic Sans MS', 'Comic Sans', cursive !important;
+            background-color: #fff;
+            color: #111;
+            line-height: 1.3;
+        }
+
+        /* Pinterest Header */
+        .pinterest-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 80px;
+            background: #fff;
+            z-index: 1000;
+            padding: 0 20px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .header-left {
+            flex: 0 0 auto;
+            margin-right: 20px;
+        }
+
+        .pinterest-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: #e60023;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #e60023;
+            margin-left: 8px;
+        }
+
+        .header-center {
+            flex: 1;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .search-wrapper {
+            width: 100%;
+            background: #efefef;
+            border-radius: 24px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            height: 48px;
+        }
+
+        .search-icon {
+            color: #767676;
+            margin-right: 12px;
+            font-size: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .search-input::placeholder {
+            color: #767676;
+        }
+
+        .header-right {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-left: 20px;
+        }
+
+        .nav-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #767676;
+            font-size: 24px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-icon:hover {
+            background-color: #efefef;
+        }
+
+        .nav-icon.active {
+            color: #111;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #efefef;
+            overflow: hidden;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 20px;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Pinterest Grid */
+        .pinterest-grid {
+            columns: 6 240px;
+            column-gap: 16px;
+            margin: 0 auto;
+            max-width: 1400px;
+        }
+
+        .pin-card {
+            break-inside: avoid;
+            margin-bottom: 16px;
+            border-radius: 16px;
+            background: #fff;
+            cursor: zoom-in;
+            position: relative;
+            transition: transform 0.2s ease;
+            overflow: hidden;
+        }
+
+        .pin-card:hover {
+            transform: scale(1.02);
+        }
+
+        .pin-image-wrapper {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #efefef;
+            width: 100%;
+            height: 100%;
+        }
+
+        .pin-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .pin-image.loaded {
+            opacity: 1;
+        }
+
+        .pin-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 40%);
+            opacity: 0;
+            transition: opacity 0.2s;
+            border-radius: 16px;
+            pointer-events: none;
+        }
+
+        .pin-card:hover .pin-overlay {
+            opacity: 1;
+        }
+
+        .pin-actions {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+        }
+
+        .pin-card:hover .pin-actions {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .pin-action-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 24px;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            color: #111;
+            backdrop-filter: blur(10px);
+            transition: background-color 0.2s;
+        }
+
+        .pin-action-btn:hover {
+            background: #fff;
+        }
+
+        .pin-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 16px;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.2s;
+            pointer-events: none;
+        }
+
+        .pin-card:hover .pin-title {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pin-title-text {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Loading Skeleton */
+        .pin-skeleton {
+            break-inside: avoid;
+            margin-bottom: 16px;
+            border-radius: 16px;
+            background: #efefef;
+            animation: skeleton-loading 1.5s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pin-skeleton::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes skeleton-loading {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        /* Footer */
+        .pinterest-footer {
+            padding: 20px;
+            text-align: center;
+            color: #767676;
+            font-size: 14px;
+            border-top: 1px solid #efefef;
+            margin-top: 40px;
+        }
+
+        /* Modal - UPDATED for better close button */
+        .pin-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            padding: 20px;
+        }
+
+        .pin-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: #fff;
+            border-radius: 32px;
+            max-width: 1000px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s;
+        }
+
+        .pin-modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 1000; /* Increased z-index */
+            transition: background-color 0.2s;
+            pointer-events: auto !important; /* Force clickable */
+        }
+
+        .modal-close:hover {
+            background: #fff;
+        }
+
+        .modal-body {
+            display: flex;
+            height: 70vh;
+        }
+
+        .modal-image {
+            flex: 1;
+            background: #efefef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .modal-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 16px;
+        }
+
+        .modal-info {
+            flex: 0 0 320px;
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        .modal-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #efefef;
+        }
+
+        .modal-btn {
+            padding: 12px 20px;
+            border-radius: 24px;
+            border: none;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .modal-btn.primary {
+            background: #e60023;
+            color: white;
+        }
+
+        .modal-btn.primary:hover {
+            background: #ad081b;
+        }
+
+        .modal-btn.secondary {
+            background: #efefef;
+            color: #111;
+        }
+
+        .modal-btn.secondary:hover {
+            background: #e2e2e2;
+        }
+
+        /* Scroll to Top */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #fff;
+            border: 1px solid #efefef;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .scroll-top:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 24px;
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 2000;
+        }
+
+        .toast.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .pinterest-grid {
+                columns: 5 200px;
+            }
+            
+            .modal-body {
+                flex-direction: column;
+                height: auto;
+                max-height: 80vh;
+            }
+            
+            .modal-image {
+                height: 50vh;
+            }
+            
+            .modal-info {
+                flex: none;
+                max-height: 30vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .pinterest-grid {
+                columns: 3 180px;
+            }
+            
+            .header-center {
+                display: none;
+            }
+            
+            .modal-content {
+                border-radius: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pinterest-grid {
+                columns: 2 160px;
+            }
+            
+            .pinterest-header {
+                padding: 0 12px;
+            }
+            
+            .header-left .logo-text {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+<section id="navigation-section">
+    <!-- Desktop Header -->
+    <header id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1760854267/logo_fx72mz.webp" alt="Istazz Media Logo">
+                <div class="logo-tagline">creative simplicity</div>
+            </a>
+            
+            <nav>
+                <div class="nav-blue-section"></div>
+                <ul id="nav-menu">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li class="dropdown">
+                         <a href="services.html">Services <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="design.html">Branding</a>
+                            <a href="events.html">Events</a>
+                            <a href="production.html">Production</a>
+                            <a href="prandmediarelations.html">PR & Media Relations</a>
+                            <a href="consultation.html">consultation</a>
+                        </div>
+                    </li>
+                    <li><a href="ourwork.html">Our Work</a></li>
+                    <li><a href="ourclients.html">Clients</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="contactus.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Top Header -->
+    <div class="mobile-top-header">
+        <div class="mobile-logo-container">
+            <a href="index.html" class="mobile-logo">
+                <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1760854267/logo_fx72mz.webp" alt="Istazz Media Logo">
+                <div class="mobile-logo-tagline">creative simplicity</div>
+            </a>
+        </div>
+        <button class="mobile-nav-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+        <ul>
+            <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="services.html"><i class="fas fa-cogs"></i> Services</a></li>
+            <li><a href="ourwork.html"><i class="fas fa-briefcase"></i> Our Work</a></li>
+            <li><a href="ourclients.html"><i class="fas fa-users"></i> Clients</a></li>
+            <li><a href="aboutus.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+            <li><a href="contactus.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Mobile Bottom Navigation - FIXED VISIBILITY -->
+    <nav class="bottom-nav">
+        <ul class="bottom-nav-items">
+            <li>
+                <a href="index.html" class="bottom-nav-item active">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                    <span>Home</span>
+                </a>
+            </li>
+           <li class="mobile-dropdown-item">
+    <!-- Services link that triggers dropdown -->
+    <a href="services.html" class="bottom-nav-item mobile-dropdown-trigger" data-desktop-href="services.html">
+        <svg viewBox="0 0 24 24">
+            <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"/>
+        </svg>
+        <!-- <span>Services</span> -->
+        <span class="dropdown-indicator">
+            <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24">
+                <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z" fill="currentColor"/>
+            </svg>
+        </span>
+    </a>
+    
+    <!-- Dropup content -->
+    <div class="mobile-dropup-content">
+        <div class="dropup-header">
+            <h4>Our Services</h4>
+            <button class="close-dropup" aria-label="Close menu">
+                <svg width="16" height="16" viewBox="0 0 24 24">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor"/>
+                </svg>
+            </button>
+        </div>
+        <div class="dropup-links">
+            <a href="design.html" class="dropup-link">
+                <span class="link-icon">🎨</span>
+                <span class="link-text">Branding</span>
+            </a>
+            <a href="events.html" class="dropup-link">
+                <span class="link-icon">🎪</span>
+                <span class="link-text">Events</span>
+            </a>
+            <a href="production.html" class="dropup-link">
+                <span class="link-icon">🎬</span>
+                <span class="link-text">Production</span>
+            </a>
+            <a href="prandmediarelations.html" class="dropup-link">
+                <span class="link-icon">📰</span>
+                <span class="link-text">PR & Media Relations</span>
+            </a>
+            <a href="consultation.html" class="dropup-link">
+                <span class="link-icon">💻</span>
+                <span class="link-text">Consultation</span>
+            </a>
+        </div>
+        <div class="dropup-footer">
+            <a href="services.html" class="view-all">View All Services →</a>
+        </div>
+    </div>
+    
+    <!-- Backdrop overlay -->
+    <div class="dropup-backdrop"></div>
+</li>
+
+<style>
+/* Mobile dropdown container - keeps the icon in bottom nav */
+.mobile-dropdown-item {
+    position: relative;
+    list-style: none;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* Trigger link styling - stays in bottom nav */
+.mobile-dropdown-trigger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    height: 100%;
+    min-width: 60px;
+    position: relative;
+    z-index: 100;
+    background: transparent;
+}
+
+/* Icon styling */
+.mobile-dropdown-trigger svg {
+    width: 24px;
+    height: 24px;
+    transition: all 0.3s ease;
+}
+
+.mobile-dropdown-trigger span {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.dropdown-indicator {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.dropdown-arrow {
+    width: 10px;
+    height: 10px;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+/* Active state for trigger in nav bar */
+.mobile-dropdown-item.active .mobile-dropdown-trigger {
+    color: #667eea;
+}
+
+.mobile-dropdown-item.active .mobile-dropdown-trigger svg {
+    transform: translateY(-2px);
+}
+
+.mobile-dropdown-item.active .dropdown-arrow {
+    transform: rotate(180deg);
+    color: #667eea;
+}
+
+/* Dropup content - appears above the nav bar */
+.mobile-dropup-content {
+    position: fixed;
+    bottom: 60px; /* Height of bottom nav bar */
+    left: 16px;
+    right: 16px;
+    background: white;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15);
+    max-height: 70vh;
+    overflow: hidden;
+}
+
+.mobile-dropdown-item.active .mobile-dropup-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Backdrop */
+.dropup-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 60px; /* Stops at bottom nav */
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(3px);
+}
+
+.mobile-dropdown-item.active .dropup-backdrop {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Dropup header */
+.dropup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 16px 16px;
+    border-bottom: 1px solid #eee;
+    background: white;
+}
+
+.dropup-header h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.close-dropup {
+    background: none;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.2s ease;
+}
+
+.close-dropup:hover {
+    background: #f5f5f5;
+    color: #333;
+}
+
+/* Dropup links */
+.dropup-links {
+    padding: 8px 16px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    flex: 1;
+}
+
+.dropup-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(10px);
+    opacity: 0;
+    background: #f8f9fa;
+}
+
+.mobile-dropdown-item.active .dropup-link {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.mobile-dropdown-item.active .dropup-link:nth-child(1) { transition-delay: 0.05s; }
+.mobile-dropdown-item.active .dropup-link:nth-child(2) { transition-delay: 0.1s; }
+.mobile-dropdown-item.active .dropup-link:nth-child(3) { transition-delay: 0.15s; }
+.mobile-dropdown-item.active .dropup-link:nth-child(4) { transition-delay: 0.2s; }
+.mobile-dropdown-item.active .dropup-link:nth-child(5) { transition-delay: 0.25s; }
+
+.dropup-link:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.link-icon {
+    font-size: 20px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 123, 255, 0.1);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.dropup-link:hover .link-icon {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.link-text {
+    font-size: 15px;
+    font-weight: 500;
+    flex: 1;
+}
+
+/* Dropup footer */
+.dropup-footer {
+    padding: 16px;
+    border-top: 1px solid #eee;
+    background: white;
+}
+
+.view-all {
+    display: block;
+    text-align: center;
+    padding: 14px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.view-all:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+/* Mobile-only styles */
+@media (max-width: 768px) {
+    .mobile-dropup-content {
+        bottom: 60px; /* Adjust based on your bottom nav height */
+    }
+    
+    .dropup-backdrop {
+        bottom: 60px;
+    }
+    
+    /* Hide on desktop */
+    .mobile-dropup-content,
+    .dropup-backdrop {
+        display: none;
+    }
+    
+    .mobile-dropdown-item.active .mobile-dropup-content,
+    .mobile-dropdown-item.active .dropup-backdrop {
+        display: flex;
+    }
+}
+
+/* Desktop styles - hide dropup */
+@media (min-width: 769px) {
+    .mobile-dropup-content,
+    .dropup-backdrop {
+        display: none !important;
+    }
+    
+    .mobile-dropdown-trigger:hover .dropdown-arrow {
+        transform: rotate(180deg);
+        color: #667eea;
+    }
+    
+    /* Keep the icon in nav bar */
+    .mobile-dropdown-trigger {
+        cursor: pointer;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .mobile-dropup-content {
+        background: #1a1a1a;
+    }
+    
+    .dropup-header,
+    .dropup-footer {
+        background: #1a1a1a;
+        border-color: #333;
+    }
+    
+    .dropup-header h4 {
+        color: #fff;
+    }
+    
+    .close-dropup {
+        color: #999;
+    }
+    
+    .close-dropup:hover {
+        background: #333;
+        color: #fff;
+    }
+    
+    .dropup-link {
+        color: #fff;
+        background: #2a2a2a;
+    }
+    
+    .link-icon {
+        background: rgba(102, 126, 234, 0.2);
+    }
+}
+
+/* Touch feedback for mobile */
+@media (max-width: 768px) {
+    .mobile-dropdown-trigger:active {
+        transform: scale(0.95);
+    }
+    
+    .mobile-dropdown-trigger:active svg {
+        transform: translateY(-1px);
+    }
+}
+
+/* Smooth transitions for dropup */
+.mobile-dropup-content {
+    animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdownItem = document.querySelector('.mobile-dropdown-item');
+    const dropdownTrigger = document.querySelector('.mobile-dropdown-trigger');
+    const closeBtn = document.querySelector('.close-dropup');
+    const backdrop = document.querySelector('.dropup-backdrop');
+    const dropupLinks = document.querySelectorAll('.dropup-link');
+    
+    // Check if we're on mobile
+    function isMobile() {
+        return window.innerWidth <= 768;
+    }
+    
+    // Toggle dropup
+    function toggleDropup() {
+        dropdownItem.classList.toggle('active');
+        document.body.style.overflow = dropdownItem.classList.contains('active') ? 'hidden' : '';
+        
+        // Prevent scrolling behind the dropup
+        if (dropdownItem.classList.contains('active')) {
+            document.addEventListener('touchmove', preventScroll, { passive: false });
+        } else {
+            document.removeEventListener('touchmove', preventScroll);
+        }
+    }
+    
+    function preventScroll(e) {
+        if (dropdownItem.classList.contains('active')) {
+            e.preventDefault();
+        }
+    }
+    
+    // Close dropup
+    function closeDropup() {
+        dropdownItem.classList.remove('active');
+        document.body.style.overflow = '';
+        document.removeEventListener('touchmove', preventScroll);
+    }
+    
+    // Event listeners
+    dropdownTrigger.addEventListener('click', function(e) {
+        if (isMobile()) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleDropup();
+        }
+    });
+    
+    closeBtn.addEventListener('click', closeDropup);
+    backdrop.addEventListener('click', closeDropup);
+    
+    // Close dropup when clicking outside on mobile
+    if (isMobile()) {
+        document.addEventListener('click', function(e) {
+            if (!dropdownItem.contains(e.target) && dropdownItem.classList.contains('active')) {
+                closeDropup();
+            }
+        });
+    }
+    
+    // Close dropup when clicking links
+    dropupLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            setTimeout(closeDropup, 300);
+        });
+    });
+    
+    // Close on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && dropdownItem.classList.contains('active')) {
+            closeDropup();
+        }
+    });
+    
+    // Handle orientation change
+    window.addEventListener('orientationchange', function() {
+        if (dropdownItem.classList.contains('active')) {
+            closeDropup();
+        }
+    });
+    
+    // Handle window resize
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            if (!isMobile() && dropdownItem.classList.contains('active')) {
+                closeDropup();
+            }
+        }, 250);
+    });
+    
+    // Prevent triggering parent clicks when interacting with dropup
+    document.querySelector('.mobile-dropup-content').addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+});
+</script>
+            <li>
+                <a href="ourwork.html" class="bottom-nav-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5-7l-3 3.72L9 13l-3 4h12l-4-5z"/>
+                    </svg>
+                    <span>Our Work</span>
+                </a>
+            </li>
+            <li>
+                <a href="ourclients.html" class="bottom-nav-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                    </svg>
+                    <span>Clients</span>
+                </a>
+            </li>
+            <li>
+                <a href="contactus.html" class="bottom-nav-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    <span>Contact</span>
+                </a>
+            </li>
+            <li>
+                <a href="aboutus.html" class="bottom-nav-item">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="16" x2="12" y2="12"/>
+                        <line x1="12" y1="8" x2="12.01" y2="8"/>
+                    </svg>
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <style>
+        /* FONT FIX 3: Updated base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Neue', 'Comic Sans MS', 'Comic Sans', cursive !important;
+        }
+        
+        :root {
+            --primary-pink: #ff3366;
+            --primary-blue: #2563eb;
+            --hot-pink: #ff1493;
+            --white: #ffffff;
+            --light-blue: #3b82f6;
+            --border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Desktop Header - Fixed for all screens */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1in; /* Fixed 1-inch height */
+            z-index: 1000;
+            padding: 0;
+            background: var(--white);
+            border-bottom: 2px solid #e5e7eb;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1400px;
+            height: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            height: 100%;
+            padding: 0 15px;
+            background-color: var(--white);
+            width: auto;
+            min-width: 240px; /* Minimum width for logo section */
+            max-width: 300px;
+            position: relative;
+            z-index: 1001;
+            border-right: 2px solid #e5e7eb;
+            flex-shrink: 0;
+        }
+        
+        .logo img {
+            height: 0.7in; /* Proportional to 1-inch navbar */
+            width: auto;
+            max-width: 1.2in;
+            margin-right: 10px;
+            object-fit: contain;
+            transform: scale(1.2);
+            transform-origin: left center;
+            filter: brightness(1.1) contrast(1.1);
+        }
+        
+        .logo-tagline {
+            font-size: 14px;
+            font-weight: 600;
+            color: #4b5563;
+            white-space: nowrap;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            padding: 6px 10px;
+            background: #f8fafc;
+            border-radius: 6px;
+            border-left: 2px solid #e5e7eb;
+            margin-left: 8px;
+            font-family: 'Comic Neue', 'Comic Sans MS', 'Comic Sans', cursive !important;
+            flex-shrink: 0;
+        }
+        
+        nav {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            flex-grow: 1;
+            background: var(--hot-pink);
+            padding: 0;
+            position: relative;
+            border-right: 2px solid var(--border-color);
+            min-width: 0;
+        }
+        
+        /* Blue section as part of navigation */
+        .nav-blue-section {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30%;
+            height: 100%;
+            background: var(--primary-blue);
+            z-index: 1;
+            border-left: 2px solid var(--border-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            height: 100%;
+            align-items: center;
+            width: 100%;
+            justify-content: space-around;
+            position: relative;
+            z-index: 2;
+            padding: 0 10px;
+            margin: 0;
+            flex-wrap: nowrap;
+        }
+        
+        nav ul li {
+            position: relative;
+            flex-shrink: 0;
+        }
+        
+        /* FIXED NAVIGATION TEXT VISIBILITY */
+        nav ul li a {
+            color: #ffffff !important;
+            text-decoration: none;
+            font-weight: 700 !important;
+            font-size: 14px !important; /* Reduced for better fit */
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 10px 12px !important; /* Reduced padding */
+            display: flex;
+            align-items: center;
+            border-radius: 6px;
+            z-index: 2;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
+            letter-spacing: 0.5px;
+            background-color: transparent !important;
+            border: none !important;
+            text-align: center;
+            justify-content: center;
+            font-family: 'Comic Neue', 'Comic Sans MS', 'Comic Sans', cursive !important;
+            white-space: nowrap;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.25) !important;
+            color: #ffffff !important;
+            transform: translateY(-1px);
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 1) !important;
+        }
+
+        nav ul li a.active {
+            background-color: rgba(255, 255, 255, 0.3) !important;
+            color: #ffffff !important;
+            font-weight: 800 !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 1) !important;
+        }
+        
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: var(--hot-pink);
+            min-width: 200px; /* Reduced width */
+            padding: 8px 0; /* Reduced padding */
+            border-radius: 8px;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            border: 1px solid var(--border-color);
+            font-family: 'Comic Neue', 'Comic Sans MS', 'Comic Sans', cursive !important;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .dropdown-content a {
+            display: block;
+            padding: 10px 15px !important; /* Reduced padding */
+            margin: 0;
+            color: #ffffff !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease;
+            font-size: 13px !important; /* Reduced font size */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6) !important;
+            background: transparent !important;
+            font-family: 'Comic Neue', 'Comic Sans MS', 'Comic Sans', cursive !important;
+            white-space: nowrap;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: rgba(255, 255, 255, 0.2) !important;
+            color: #ffffff !important;
+            padding-left: 20px !important;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
+        }
+        
+        /* Force white text in all navigation contexts */
+        nav, nav *, .dropdown, .dropdown * {
+            color: #ffffff !important;
+        }
+        
+        /* Responsive Styles for Desktop Nav */
+        @media (max-width: 1200px) {
+            .logo img {
+                height: 0.6in;
+                transform: scale(1.1);
+            }
+            
+            nav ul li a {
+                font-size: 13px !important;
+                padding: 8px 10px !important;
+            }
+            
+            .logo {
+                min-width: 220px;
+            }
+            
+            .logo-tagline {
+                font-size: 12px;
+                padding: 5px 8px;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            nav ul li a {
+                font-size: 12px !important;
+                padding: 8px 8px !important;
+            }
+            
+            .logo {
+                min-width: 200px;
+            }
+            
+            .logo img {
+                height: 0.55in;
+                transform: scale(1);
+                margin-right: 8px;
+            }
+            
+            .logo-tagline {
+                font-size: 11px;
+                padding: 4px 6px;
+                margin-left: 6px;
+            }
+        }
+        
+        /* Mobile Top Header */
+        .mobile-top-header {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1in;
+            background: var(--white);
+            z-index: 1001;
+            padding: 0 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        .mobile-logo-container {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+        }
+        
+        .mobile-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            padding: 5px 0;
+            min-width: 0;
+            flex: 1;
+        }
+        
+        .mobile-logo img {
+            height: 0.65in;
+            width: auto;
+            max-width: 1.1in;
+            object-fit: contain;
+            transform: scale(1.2);
+            transform-origin: left center;
+            filter: brightness(1.1) contrast(1.1);
+            flex-shrink: 0;
+        }
+        
+        .mobile-logo-tagline {
+            font-size: 12px;
+            font-weight: 600;
+            color: #4b5563;
+            margin-left: 10px;
+            white-space: nowrap;
+            letter-spacing: 0.7px;
+            text-transform: uppercase;
+            padding: 4px 8px;
+            background: #f8fafc;
+            border-radius: 4px;
+            border-left: 2px solid #e5e7eb;
+            font-family: 'Comic Neue', 'Comic Sans MS', 'Comic Sans', cursive !important;
+            flex-shrink: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .mobile-nav-toggle {
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: #374151;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 10px;
+        }
+        
+        .mobile-nav-toggle:hover {
+            background-color: #f3f4f6;
+        }
+        
+        /* Mobile Navigation Menu */
+        .mobile-nav-menu {
+            display: none;
+            position: fixed;
+            top: 1in;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+        }
+        
+        .mobile-nav-menu.active {
+            display: block;
+            max-height: 400px;
+            padding: 15px 0;
+        }
+        
+        .mobile-nav-menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .mobile-nav-menu ul li {
+            border-bottom: 1px solid #f3f4f6;
+        }
+        
+        .mobile-nav-menu ul li a {
+            display: flex;
+            align-items: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            font-family: 'Comic Neue', 'Comic Sans MS', 'Comic Sans', cursive !important;
+        }
+        
+        .mobile-nav-menu ul li a i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            color: var(--hot-pink);
+            flex-shrink: 0;
+        }
+        
+        .mobile-nav-menu ul li a:hover {
+            background-color: #f9fafb;
+            color: var(--hot-pink);
+            padding-left: 25px;
+        }
+        
+        .mobile-nav-menu ul li a.active {
+            background: linear-gradient(135deg, var(--hot-pink), var(--primary-blue));
+            color: white;
+            font-weight: 600;
+        }
+        
+        .mobile-nav-menu ul li a.active i {
+            color: white;
+        }
+        
+        /* Mobile Bottom Navigation - FIXED VISIBILITY */
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 85px;
+            background: linear-gradient(135deg, var(--hot-pink), var(--primary-blue));
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            padding: 10px 5px;
+            border-top: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .bottom-nav-items {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            list-style: none;
+            padding: 0 5px;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            text-decoration: none;
+            color: #ffffff !important;
+            font-size: 12px !important;
+            font-weight: 700 !important;
+            transition: all 0.3s ease;
+            padding: 6px 3px;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 0;
+            max-width: 16.666%;
+            height: 100%;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9) !important;
+            background: transparent !important;
+            font-family: 'Comic Neue', 'Comic Sans MS', 'Comic Sans', cursive !important;
+        }
+        
+        .bottom-nav-item svg {
+            width: 22px;
+            height: 22px;
+            margin-bottom: 4px;
+            fill: #ffffff !important;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.8));
+        }
+        
+        .bottom-nav-item.active {
+            color: #ffffff !important;
+            background-color: rgba(255, 255, 255, 0.35) !important;
+            transform: translateY(-2px);
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 1) !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .bottom-nav-item.active svg {
+            fill: #ffffff !important;
+            transform: scale(1.15);
+            filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 1));
+        }
+        
+        .bottom-nav-item:hover {
+            color: #ffffff !important;
+            background-color: rgba(255, 255, 255, 0.25) !important;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 1) !important;
+        }
+        
+        .bottom-nav-item:hover svg {
+            fill: #ffffff !important;
+            filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 1));
+        }
+        
+        .bottom-nav-item span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            text-align: center;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: 0.2px;
+            font-size: 11px !important;
+        }
+        
+        /* Responsive Breakpoints */
+        @media (max-width: 992px) {
+            /* Switch to mobile view */
+            header {
+                display: none;
+            }
+            
+            .mobile-top-header {
+                display: flex;
+            }
+            
+            .bottom-nav {
+                display: flex;
+            }
+            
+            /* Desktop nav hidden completely */
+            .header-container {
+                display: none;
+            }
+        }
+        
+        /* Tablet Landscape */
+        @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+            .mobile-top-header {
+                height: 0.9in;
+            }
+            
+            .mobile-logo img {
+                height: 0.55in;
+                max-width: 1in;
+            }
+            
+            .bottom-nav {
+                height: 70px;
+            }
+            
+            .bottom-nav-item svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+        
+        /* iPad Portrait */
+        @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+            .mobile-top-header {
+                height: 1in;
+            }
+            
+            .mobile-logo-tagline {
+                font-size: 13px;
+            }
+            
+            .bottom-nav {
+                height: 75px;
+            }
+            
+            .bottom-nav-item {
+                font-size: 13px !important;
+                padding: 8px 4px;
+            }
+            
+            .bottom-nav-item span {
+                font-size: 12px !important;
+            }
+        }
+        
+        /* Large Phones */
+        @media (max-width: 767px) {
+            .mobile-top-header {
+                height: 0.9in;
+                padding: 0 12px;
+            }
+            
+            .mobile-logo img {
+                height: 0.55in;
+                max-width: 0.9in;
+                transform: scale(1.1);
+            }
+            
+            .mobile-logo-tagline {
+                font-size: 11px;
+                margin-left: 8px;
+                padding: 3px 6px;
+            }
+            
+            .mobile-nav-toggle {
+                font-size: 20px;
+                padding: 6px;
+            }
+            
+            .bottom-nav {
+                height: 75px;
+                padding: 8px 3px;
+            }
+            
+            .bottom-nav-item {
+                padding: 5px 2px;
+                font-size: 11px !important;
+            }
+            
+            .bottom-nav-item svg {
+                width: 20px;
+                height: 20px;
+                margin-bottom: 3px;
+            }
+            
+            .bottom-nav-item span {
+                font-size: 10px !important;
+            }
+        }
+        
+        /* Medium Phones */
+        @media (max-width: 480px) {
+            .mobile-top-header {
+                height: 0.85in;
+                padding: 0 10px;
+            }
+            
+            .mobile-logo-container {
+                max-width: 75%;
+            }
+            
+            .mobile-logo img {
+                height: 0.5in;
+                max-width: 0.8in;
+                transform: scale(1);
+            }
+            
+            .mobile-logo-tagline {
+                font-size: 10px;
+                margin-left: 6px;
+                padding: 2px 4px;
+                letter-spacing: 0.5px;
+            }
+            
+            .mobile-nav-toggle {
+                font-size: 18px;
+            }
+            
+            .mobile-nav-menu ul li a {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+            
+            .bottom-nav {
+                height: 70px;
+                padding: 7px 2px;
+            }
+            
+            .bottom-nav-item {
+                padding: 4px 1px;
+                font-size: 10px !important;
+            }
+            
+            .bottom-nav-item svg {
+                width: 18px;
+                height: 18px;
+                margin-bottom: 2px;
+            }
+            
+            .bottom-nav-item span {
+                font-size: 9px !important;
+                line-height: 1.1;
+            }
+        }
+        
+        /* Small Phones */
+        @media (max-width: 375px) {
+            .mobile-top-header {
+                height: 0.8in;
+                padding: 0 8px;
+            }
+            
+            .mobile-logo img {
+                height: 0.45in;
+                max-width: 0.75in;
+            }
+            
+            .mobile-logo-tagline {
+                font-size: 9px;
+                margin-left: 4px;
+                padding: 2px 3px;
+            }
+            
+            .mobile-nav-toggle {
+                font-size: 16px;
+                padding: 5px;
+                margin-left: 5px;
+            }
+            
+            .bottom-nav {
+                height: 65px;
+                padding: 6px 1px;
+            }
+            
+            .bottom-nav-items {
+                padding: 0 2px;
+            }
+            
+            .bottom-nav-item {
+                padding: 3px 0;
+                font-size: 9px !important;
+            }
+            
+            .bottom-nav-item svg {
+                width: 16px;
+                height: 16px;
+                margin-bottom: 1px;
+            }
+            
+            .bottom-nav-item span {
+                font-size: 8px !important;
+                letter-spacing: 0;
+            }
+        }
+        
+        /* Extra Small Phones */
+        @media (max-width: 320px) {
+            .mobile-top-header {
+                height: 0.75in;
+                padding: 0 5px;
+            }
+            
+            .mobile-logo img {
+                height: 0.4in;
+                max-width: 0.7in;
+                transform: scale(0.9);
+            }
+            
+            .mobile-logo-tagline {
+                font-size: 8px;
+                margin-left: 3px;
+                padding: 1px 2px;
+                display: none; /* Hide on very small screens */
+            }
+            
+            .bottom-nav {
+                height: 60px;
+            }
+            
+            .bottom-nav-item {
+                padding: 2px 0;
+            }
+            
+            .bottom-nav-item svg {
+                width: 14px;
+                height: 14px;
+            }
+            
+            .bottom-nav-item span {
+                font-size: 7px !important;
+            }
+        }
+        
+        /* Very Large Screens */
+        @media (min-width: 1400px) {
+            .header-container {
+                max-width: 1600px;
+            }
+            
+            .logo {
+                min-width: 260px;
+            }
+            
+            nav ul li a {
+                font-size: 16px !important;
+                padding: 12px 15px !important;
+            }
+        }
+        
+        /* Prevent horizontal scroll on mobile */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        /* Safe area insets for notched devices */
+        @supports (padding: max(0px)) {
+            .mobile-top-header {
+                padding-left: max(15px, env(safe-area-inset-left));
+                padding-right: max(15px, env(safe-area-inset-right));
+                padding-top: env(safe-area-inset-top);
+            }
+            
+            .bottom-nav {
+                padding-bottom: max(10px, env(safe-area-inset-bottom));
+                padding-left: max(5px, env(safe-area-inset-left));
+                padding-right: max(5px, env(safe-area-inset-right));
+            }
+        }
+    </style>
+
+    <script>
+        // Mobile menu toggle functionality
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const mobileNavMenu = document.getElementById('mobileNavMenu');
+        
+        if (mobileNavToggle) {
+            mobileNavToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                mobileNavMenu.classList.toggle('active');
+                this.innerHTML = mobileNavMenu.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+        }
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.mobile-top-header') && !event.target.closest('.mobile-nav-menu')) {
+                if (mobileNavMenu.classList.contains('active')) {
+                    mobileNavMenu.classList.remove('active');
+                    if (mobileNavToggle) mobileNavToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            }
+        });
+        
+        // Close mobile menu when clicking a link
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-menu a');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileNavMenu.classList.remove('active');
+                if (mobileNavToggle) mobileNavToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Set active navigation item based on current page
+        function setActiveNavItem() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            
+            // Desktop navigation
+            const desktopLinks = document.querySelectorAll('#nav-menu a');
+            desktopLinks.forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref === currentPage || (currentPage === '' && linkHref === 'index.html')) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+            
+            // Mobile navigation
+            const mobileLinks = document.querySelectorAll('.mobile-nav-menu a');
+            mobileLinks.forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref === currentPage || (currentPage === '' && linkHref === 'index.html')) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+            
+            // Mobile bottom navigation
+            const bottomNavLinks = document.querySelectorAll('.bottom-nav-item');
+            bottomNavLinks.forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref === currentPage || (currentPage === '' && linkHref === 'index.html')) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        // Initialize active state
+        document.addEventListener('DOMContentLoaded', setActiveNavItem);
+        
+        // Handle responsive behavior
+        function handleResize() {
+            if (window.innerWidth > 992) {
+                // On desktop, ensure mobile menu is closed
+                if (mobileNavMenu) {
+                    mobileNavMenu.classList.remove('active');
+                }
+                if (mobileNavToggle) {
+                    mobileNavToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Initial check
+
+        // Smooth scroll to top when home is clicked and already on home
+        document.addEventListener('DOMContentLoaded', function() {
+            const homeLinks = document.querySelectorAll('a[href="index.html"]');
+            
+            homeLinks.forEach(homeLink => {
+                homeLink.addEventListener('click', function(e) {
+                    if (window.location.pathname.endsWith('index.html') || 
+                        window.location.pathname === '/' || 
+                        window.location.pathname.endsWith('/')) {
+                        e.preventDefault();
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                        // Update active state
+                        setActiveNavItem();
+                    }
+                });
+            });
+        });
+
+        // Handle dropdown on touch devices
+        if ('ontouchstart' in window) {
+            const dropdowns = document.querySelectorAll('.dropdown');
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('touchstart', function(e) {
+                    if (window.innerWidth > 992) { // Desktop only
+                        const content = this.querySelector('.dropdown-content');
+                        if (content.style.display === 'block') {
+                            content.style.display = 'none';
+                        } else {
+                            content.style.display = 'block';
+                        }
+                        e.preventDefault();
+                    }
+                });
+            });
+        }
+    </script>
+</section>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div id="pinterestGrid" class="pinterest-grid">
+            <!-- Pinterest cards will be dynamically inserted here -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="pinterest-footer">
+        <p>© 2026 Istazz Media | Pinterest-style Gallery</p>
+    </footer>
+
+    <!-- Pin Modal -->
+    <div class="pin-modal" id="pinModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+                <i class="bi-x-lg"></i>
+            </button>
+            <div class="modal-body">
+                <div class="modal-image" id="modalImage">
+                    <!-- Image will be inserted here -->
+                </div>
+                <div class="modal-info">
+                    <h1 class="modal-title" id="modalTitle">Image Title</h1>
+                    <div class="modal-actions">
+                        <button class="modal-btn primary" id="downloadBtn">
+                            <i class="bi-download"></i>
+                            Download
+                        </button>
+                        <button class="modal-btn secondary" id="shareBtn">
+                            <i class="bi-share"></i>
+                            Share
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollToTop">
+        <i class="bi-chevron-up"></i>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div id="toastMessage"></div>
+    </div>
+
+    <script type="module">
+        // Import Firebase SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // Firebase config
+        const firebaseConfig = {
+          apiKey: "AIzaSyDCdt6FV_zrEyZkJCngtXsmEjht1aahX8k",
+          authDomain: "istazz-media-2a381.firebaseapp.com",
+          projectId: "istazz-media-2a381",
+          storageBucket: "istazz-media-2a381.firebasestorage.app",
+          messagingSenderId: "684862202293",
+          appId: "1:684862202293:web:3f5f513c5c6034119139fc"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // DOM Elements
+        const pinterestGrid = document.getElementById("pinterestGrid");
+        const searchInput = document.getElementById("searchInput");
+        const searchForm = document.getElementById("searchForm");
+        const pinModal = document.getElementById("pinModal");
+        const modalClose = document.getElementById("modalClose");
+        const modalImage = document.getElementById("modalImage");
+        const modalTitle = document.getElementById("modalTitle");
+        const downloadBtn = document.getElementById("downloadBtn");
+        const shareBtn = document.getElementById("shareBtn");
+        const scrollToTop = document.getElementById("scrollToTop");
+        const toast = document.getElementById("toast");
+        const toastMessage = document.getElementById("toastMessage");
+
+        // Global variables
+        let allMedia = [];
+        let filteredMedia = [];
+        let currentMedia = null;
+
+        // Initialize the application
+        function init() {
+          loadMedia();
+          setupEventListeners();
+        }
+
+        // Fetch all media
+        async function loadMedia() {
+          try {
+            showSkeletonLoading();
+            
+            const querySnapshot = await getDocs(collection(db, "mediaLibrary"));
+            
+            if (querySnapshot.empty) {
+              showNoMediaMessage();
+              return;
+            }
+
+            allMedia = [];
+            querySnapshot.forEach((doc) => {
+              const data = doc.data();
+              const id = doc.id;
+              
+              // Only include items that have both image and title
+              if (data.title && (data.thumbnailUrl || data.fileUrl)) {
+                allMedia.push({ 
+                  id, 
+                  title: data.title,
+                  imageUrl: data.thumbnailUrl || data.fileUrl,
+                  description: data.description || "",
+                  date: data.date || ""
+                });
+              }
+            });
+
+            // Shuffle for Pinterest-like random layout
+            allMedia = shuffleArray(allMedia);
+            filteredMedia = [...allMedia];
+            
+            displayMedia();
+            
+            showToast("Loaded " + allMedia.length + " images", "success");
+          } catch (error) {
+            console.error("Error loading media:", error);
+            showErrorMessage("Error loading media. Please check your connection.");
+          }
+        }
+
+        // Shuffle array for Pinterest random layout
+        function shuffleArray(array) {
+          const shuffled = [...array];
+          for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+          }
+          return shuffled;
+        }
+
+        // Display media items in Pinterest grid
+        function displayMedia() {
+          pinterestGrid.innerHTML = "";
+
+          if (filteredMedia.length === 0) {
+            showNoResultsMessage();
+            return;
+          }
+
+          filteredMedia.forEach((item, index) => {
+            const { id, title, imageUrl } = item;
+            const displayTitle = title || "Untitled";
+            
+            // Create pin card
+            const pinCard = document.createElement("div");
+            pinCard.className = "pin-card";
+            pinCard.setAttribute("data-id", id);
+            pinCard.setAttribute("data-index", index);
+
+            // Create image wrapper with fixed aspect ratio based on random size
+            const randomHeight = Math.floor(Math.random() * 300) + 200; // 200-500px height
+            pinCard.style.height = randomHeight + "px";
+
+            pinCard.innerHTML = `
+              <div class="pin-image-wrapper">
+                <img 
+                  class="pin-image" 
+                  src="${imageUrl}" 
+                  alt="${displayTitle}"
+                  loading="lazy"
+                  onload="this.classList.add('loaded'); this.parentElement.style.backgroundColor = 'transparent';"
+                  onerror="handleImageError(this)"
+                >
+                <div class="pin-overlay"></div>
+                <div class="pin-actions">
+                  <button class="pin-action-btn save-btn">
+                    <i class="bi-bookmark"></i>
+                  </button>
+                  <button class="pin-action-btn share-btn">
+                    <i class="bi-share"></i>
+                  </button>
+                </div>
+                <div class="pin-title">
+                  <div class="pin-title-text">${displayTitle}</div>
+                </div>
+              </div>
+            `;
+
+            // Add click event to open modal
+            pinCard.addEventListener('click', (e) => {
+              if (!e.target.closest('.pin-action-btn')) {
+                openModal(item, index);
+              }
+            });
+
+            // Add save button functionality
+            const saveBtn = pinCard.querySelector('.save-btn');
+            saveBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              savePin(item);
+            });
+
+            // Add share button functionality
+            const shareBtn = pinCard.querySelector('.share-btn');
+            shareBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              sharePin(item);
+            });
+
+            pinterestGrid.appendChild(pinCard);
+          });
+        }
+
+        // Handle image loading errors
+        function handleImageError(img) {
+          img.classList.add('loaded');
+          img.parentElement.style.backgroundColor = '#f0f0f0';
+          img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400"%3E%3Crect width="300" height="400" fill="%23f0f0f0"/%3E%3Ctext x="50%" y="50%" font-family="Arial" font-size="14" fill="%23999" text-anchor="middle" dy=".3em"%3EImage not available%3C/text%3E%3C/svg%3E';
+        }
+
+        // Open modal with pin details
+        function openModal(item, index) {
+          currentMedia = item;
+          
+          const title = item.title || "Untitled";
+          const imageUrl = item.imageUrl;
+
+          // Set modal content
+          modalTitle.textContent = title;
+          modalImage.innerHTML = `
+            <img src="${imageUrl}" alt="${title}" 
+                 onload="this.style.opacity='1'"
+                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"600\" height=\"400\" viewBox=\"0 0 600 400\"%3E%3Crect width=\"600\" height=\"400\" fill=\"%23f0f0f0\"/%3E%3Ctext x=\"50%\" y=\"50%\" font-family=\"Arial\" font-size=\"16\" fill=\"%23999\" text-anchor=\"middle\" dy=\".3em\"%3EImage not available%3C/text%3E%3C/svg%3E'"
+                 style="opacity:0; transition: opacity 0.3s;">
+          `;
+
+          // Set download button
+          downloadBtn.onclick = () => downloadImage(imageUrl, title);
+          
+          // Set share button
+          shareBtn.onclick = () => sharePin(item);
+
+          // Show modal
+          pinModal.classList.add("active");
+          document.body.style.overflow = "hidden";
+        }
+
+        // Close modal - FIXED VERSION
+        function closeModal() {
+          if (pinModal) {
+            pinModal.classList.remove("active");
+          }
+          document.body.style.overflow = "auto";
+        }
+
+        // Download image
+        function downloadImage(url, title) {
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = (title || 'image').replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.jpg';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          
+          showToast("Download started", "success");
+        }
+
+        // Share pin
+        function sharePin(item) {
+          const title = item.title || "Check out this image";
+          const url = item.imageUrl;
+          
+          if (navigator.share) {
+            navigator.share({
+              title: title,
+              text: `Found this on Istazz Media: ${title}`,
+              url: url,
+            })
+            .then(() => showToast("Shared successfully", "success"))
+            .catch((error) => console.log('Error sharing:', error));
+          } else {
+            // Fallback: copy to clipboard
+            navigator.clipboard.writeText(url)
+              .then(() => showToast("Link copied to clipboard", "success"))
+              .catch(err => {
+                console.error('Failed to copy: ', err);
+                showToast("Failed to share", "error");
+              });
+          }
+        }
+
+        // Save pin
+        function savePin(item) {
+          showToast("Saved to favorites", "success");
+        }
+
+        // Search functionality
+        function searchMedia(query) {
+          if (!query.trim()) {
+            filteredMedia = [...allMedia];
+            displayMedia();
+            return;
+          }
+
+          const searchTerm = query.toLowerCase().trim();
+          filteredMedia = allMedia.filter(item => {
+            const title = (item.title || "").toLowerCase();
+            const description = (item.description || "").toLowerCase();
+            
+            return title.includes(searchTerm) || description.includes(searchTerm);
+          });
+
+          displayMedia();
+        }
+
+        // Show skeleton loading
+        function showSkeletonLoading() {
+          pinterestGrid.innerHTML = '';
+          for (let i = 0; i < 15; i++) {
+            const skeleton = document.createElement('div');
+            skeleton.className = 'pin-skeleton';
+            // Random heights like real Pinterest
+            skeleton.style.height = `${Math.floor(Math.random() * 300) + 200}px`;
+            pinterestGrid.appendChild(skeleton);
+          }
+        }
+
+        // Show no media message
+        function showNoMediaMessage() {
+          pinterestGrid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #767676;">
+              <i class="bi-inbox" style="font-size: 48px; margin-bottom: 20px; display: block; color: #ddd;"></i>
+              <h3 style="margin-bottom: 12px; font-weight: 500;">No media found</h3>
+              <p style="margin-bottom: 24px;">Upload some images to your Firebase database to get started.</p>
+              <button onclick="window.loadMedia()" style="background: #e60023; color: white; border: none; padding: 12px 24px; border-radius: 24px; font-weight: 600; cursor: pointer; font-size: 14px;">
+                Try Again
+              </button>
+            </div>
+          `;
+        }
+
+        // Show no results message
+        function showNoResultsMessage() {
+          pinterestGrid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #767676;">
+              <i class="bi-search" style="font-size: 48px; margin-bottom: 20px; display: block; color: #ddd;"></i>
+              <h3 style="margin-bottom: 12px; font-weight: 500;">No results found</h3>
+              <p style="margin-bottom: 24px;">Try different search terms or browse all images.</p>
+              <button onclick="clearSearch()" style="background: #e60023; color: white; border: none; padding: 12px 24px; border-radius: 24px; font-weight: 600; cursor: pointer; font-size: 14px;">
+                Clear Search
+              </button>
+            </div>
+          `;
+        }
+
+        // Show error message
+        function showErrorMessage(message) {
+          pinterestGrid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #767676;">
+              <i class="bi-exclamation-triangle" style="font-size: 48px; margin-bottom: 20px; display: block; color: #e60023;"></i>
+              <h3 style="margin-bottom: 12px; font-weight: 500;">Something went wrong</h3>
+              <p style="margin-bottom: 24px;">${message}</p>
+              <button onclick="window.loadMedia()" style="background: #e60023; color: white; border: none; padding: 12px 24px; border-radius: 24px; font-weight: 600; cursor: pointer; font-size: 14px;">
+                Try Again
+              </button>
+            </div>
+          `;
+        }
+
+        // Clear search
+        function clearSearch() {
+          if (searchInput) {
+            searchInput.value = '';
+          }
+          filteredMedia = [...allMedia];
+          displayMedia();
+        }
+
+        // Show toast notification
+        function showToast(message, type = "success") {
+          if (toastMessage) {
+            toastMessage.textContent = message;
+          }
+          if (toast) {
+            toast.className = `toast ${type} visible`;
+            
+            setTimeout(() => {
+              toast.classList.remove('visible');
+            }, 3000);
+          }
+        }
+
+        // Setup event listeners - FIXED VERSION
+        function setupEventListeners() {
+          // Search form
+          if (searchForm && searchInput) {
+            searchForm.addEventListener('submit', (e) => {
+              e.preventDefault();
+              searchMedia(searchInput.value);
+            });
+
+            searchInput.addEventListener('input', (e) => {
+              if (e.target.value === '') {
+                filteredMedia = [...allMedia];
+                displayMedia();
+              }
+            });
+          }
+
+          // Modal close - FIXED
+          if (modalClose) {
+            modalClose.addEventListener('click', closeModal);
+          }
+          
+          // Close modal when clicking outside
+          if (pinModal) {
+            pinModal.addEventListener('click', (e) => {
+              if (e.target === pinModal) {
+                closeModal();
+              }
+            });
+          }
+
+          // Keyboard navigation
+          document.addEventListener('keydown', (e) => {
+            if (pinModal && pinModal.classList.contains('active')) {
+              if (e.key === 'Escape') {
+                closeModal();
+              }
+            }
+          });
+
+          // Scroll to top
+          if (scrollToTop) {
+            scrollToTop.addEventListener('click', () => {
+              window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+              });
+            });
+          }
+
+          // Show/hide scroll to top button
+          window.addEventListener('scroll', () => {
+            if (scrollToTop) {
+              if (window.pageYOffset > 500) {
+                scrollToTop.classList.add('visible');
+              } else {
+                scrollToTop.classList.remove('visible');
+              }
+            }
+          });
+        }
+
+        // Make functions available globally for onclick handlers
+        window.loadMedia = loadMedia;
+        window.clearSearch = clearSearch;
+        window.handleImageError = handleImageError;
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+
+    <!-- SIMPLE FIX FOR MODAL CLOSE BUTTON - Ensures it works even if module fails -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Direct fix for modal close button
+            const closeBtn = document.getElementById('modalClose');
+            const modal = document.getElementById('pinModal');
+            
+            if (closeBtn && modal) {
+                closeBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            }
+            
+            // Also close when clicking outside modal
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            }
+            
+            // Close with ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Ensure images are clickable
+            setTimeout(function() {
+                const pinCards = document.querySelectorAll('.pin-card');
+                pinCards.forEach(card => {
+                    if (!card.hasAttribute('data-click-attached')) {
+                        card.setAttribute('data-click-attached', 'true');
+                        card.addEventListener('click', function(e) {
+                            if (!e.target.closest('.pin-action-btn')) {
+                                const id = this.getAttribute('data-id');
+                                const index = this.getAttribute('data-index');
+                                if (id && allMedia && allMedia[index]) {
+                                    openModal(allMedia[index], index);
+                                }
+                            }
+                        });
+                    }
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
