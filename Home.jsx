@@ -549,17 +549,17 @@ const Footer = () => {
           {/* Quick Links Section */}
           <div className="footer-section">
             <h3>Quick Links</h3>
-            <ul className="footer-links">
-              <li><a href="/"><i className="bi bi-chevron-right"></i> Home</a></li>
-              <li><a href="/aboutus"><i className="bi bi-chevron-right"></i> About Us</a></li>
-              <li><a href="/services"><i className="bi bi-chevron-right"></i> Services</a></li>
-              <li><a href="/ourwork"><i className="bi bi-chevron-right"></i> Our Work</a></li>
-              <li><a href="/ourclients"><i className="bi bi-chevron-right"></i> Our Clients</a></li>
-              <li><a href="/eventbranding"><i className="bi bi-chevron-right"></i> Event Branding</a></li>
-              <li><a href="/prandmediarelations"><i className="bi bi-chevron-right"></i> PR & Media Relations</a></li>
-              <li><a href="/consultation"><i className="bi bi-chevron-right"></i> Consultation</a></li>
-              <li><a href="/design"><i className="bi bi-chevron-right"></i> Design</a></li>
-              <li><a href="/contactus"><i className="bi bi-chevron-right"></i> Contact Us</a></li>
+           <ul className="footer-links">
+              <li><a href="index.html"><i className="bi bi-chevron-right"></i> Home</a></li>
+              <li><a href="aboutus.html"><i className="bi bi-chevron-right"></i> About Us</a></li>
+              <li><a href="services.html"><i className="bi bi-chevron-right"></i> Services</a></li>
+              <li><a href="ourwork.html"><i className="bi bi-chevron-right"></i> Our Work</a></li>
+              <li><a href="ourclients.html"><i className="bi bi-chevron-right"></i> Our Clients</a></li>
+              <li><a href="eventbranding.html"><i className="bi bi-chevron-right"></i> Event Branding</a></li>
+              <li><a href="prandmediarelations.html"><i className="bi bi-chevron-right"></i> PR & Media Relations</a></li>
+              <li><a href="consultation.html"><i className="bi bi-chevron-right"></i> Consultation</a></li>
+              <li><a href="design.html"><i className="bi bi-chevron-right"></i> Design</a></li>
+              <li><a href="contactus.html"><i className="bi bi-chevron-right"></i> Contact Us</a></li>
             </ul>
           </div>
 
