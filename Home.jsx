@@ -1,5 +1,5 @@
 // App.js
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 // Custom hook for scroll reveal animation
 const useScrollReveal = () => {
@@ -50,7 +50,6 @@ const useWindowSize = () => {
 // Global Styles Component
 const GlobalStyles = () => {
   useEffect(() => {
-    // Add global styles to document head
     const style = document.createElement('style');
     style.textContent = `
       * {
@@ -77,29 +76,35 @@ const GlobalStyles = () => {
         transform: translateY(0);
       }
       
-      @keyframes slideUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+      .service-card:hover .service-image img {
+        transform: scale(1.1);
       }
       
-      @keyframes fadeInDown {
-        from { opacity: 0; transform: translateY(-30px); }
-        to { opacity: 1; transform: translateY(0); }
+      .portfolio-item:hover .portfolio-image {
+        transform: scale(1.1);
       }
       
-      @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
+      .portfolio-item:hover .portfolio-overlay {
+        opacity: 1;
       }
       
-      @keyframes slide {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
+      .bottom-nav-item:hover {
+        background-color: rgba(255, 255, 255, 0.25) !important;
+      }
+      
+      .social-link:hover {
+        background: #ff3366;
+        transform: translateY(-3px);
+      }
+      
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-18px); }
       }
       
       @keyframes scroll {
         0% { transform: translateX(0); }
-        100% { transform: translateX(calc(-320px * 4 - 2rem * 4)); }
+        100% { transform: translateX(-50%); }
       }
       
       .container {
@@ -107,20 +112,6 @@ const GlobalStyles = () => {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 20px;
-      }
-      
-      @media (max-width: 768px) {
-        @keyframes scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(calc(-240px * 4 - 2rem * 4)); }
-        }
-      }
-      
-      @media (max-width: 480px) {
-        @keyframes scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(calc(-200px * 4 - 2rem * 4)); }
-        }
       }
     `;
     document.head.appendChild(style);
@@ -178,7 +169,6 @@ const Header = () => {
     };
   }, [mobileDropdownOpen]);
 
-  // Inline styles
   const headerStyles = {
     position: 'fixed',
     top: 0,
@@ -287,7 +277,7 @@ const Header = () => {
   };
 
   const navLinkStyles = {
-    color: '#ffffff !important',
+    color: '#ffffff',
     textDecoration: 'none',
     fontWeight: 700,
     fontSize: '14px',
@@ -414,7 +404,6 @@ const Header = () => {
   return (
     <>
       <GlobalStyles />
-      {/* Desktop Header */}
       <header style={headerStyles}>
         <div style={headerContainerStyles}>
           <a href="/" style={logoSyles}>
@@ -456,7 +445,6 @@ const Header = () => {
         </div>
       </header>
 
-      {/* Mobile Top Header */}
       <div style={mobileTopHeaderStyles}>
         <div style={{ display: 'flex', alignItems: 'center', flex: 1, minWidth: 0, overflow: 'hidden' }}>
           <a href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', padding: '5px 0', flex: 1 }}>
@@ -477,7 +465,6 @@ const Header = () => {
         </button>
       </div>
 
-      {/* Mobile Navigation Menu */}
       <div style={mobileNavMenuStyles}>
         <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
           <li style={{ borderBottom: '1px solid #f3f4f6' }}><a href="/" onClick={closeMobileMenu} style={{ display: 'flex', alignItems: 'center', padding: '14px 20px', textDecoration: 'none', color: '#374151', fontWeight: 500, fontSize: '15px' }}><i className="fas fa-home" style={{ marginRight: '12px', width: '20px', color: '#ff1493' }}></i> Home</a></li>
@@ -489,11 +476,10 @@ const Header = () => {
         </ul>
       </div>
 
-      {/* Mobile Bottom Navigation */}
       <nav style={bottomNavStyles}>
         <ul style={bottomNavItemsStyles}>
           <li><a href="/" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', textDecoration: 'none', color: '#ffffff', fontSize: '12px', fontWeight: 700, padding: '6px 3px', borderRadius: '8px', flex: 1, textAlign: 'center' }}><svg viewBox="0 0 24 24" style={{ width: '22px', height: '22px', marginBottom: '4px', fill: '#ffffff' }}><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span>Home</span></a></li>
-          <li className="mobile-dropdown-item" style={{ position: 'relative', listStyle: 'none', height: '100%', display: 'flex', alignItems: 'center' }}>
+          <li style={{ position: 'relative', listStyle: 'none', height: '100%', display: 'flex', alignItems: 'center' }}>
             <a 
               href="/services" 
               onClick={toggleMobileDropdown}
@@ -530,7 +516,7 @@ const Header = () => {
   );
 };
 
-// Hero Section Component
+// Hero Section Component - Mobile: image background, Desktop: video background
 const Hero = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
@@ -654,7 +640,18 @@ const Hero = () => {
   return (
     <section style={heroStyles}>
       {isMobile ? (
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundImage: `url(${mobileBackgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', zIndex: 0 }} />
+        <div style={{ 
+          position: 'absolute', 
+          top: 0, 
+          left: 0, 
+          width: '100%', 
+          height: '100%', 
+          backgroundImage: `url(${mobileBackgroundImage})`, 
+          backgroundSize: 'cover', 
+          backgroundPosition: 'center', 
+          backgroundRepeat: 'no-repeat', 
+          zIndex: 0 
+        }} />
       ) : (
         <>
           <video
@@ -664,14 +661,35 @@ const Hero = () => {
             loop
             playsInline
             preload="auto"
-            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0, opacity: videoLoaded ? 1 : 0, transition: 'opacity 0.5s ease-out' }}
+            style={{ 
+              position: 'absolute', 
+              top: 0, 
+              left: 0, 
+              width: '100%', 
+              height: '100%', 
+              objectFit: 'cover', 
+              zIndex: 0, 
+              opacity: videoLoaded ? 1 : 0, 
+              transition: 'opacity 0.5s ease-out' 
+            }}
             onCanPlay={() => setVideoLoaded(true)}
             onError={() => setVideoError(true)}
           >
             <source src={videoUrl} type="video/mp4" />
           </video>
           {videoError && (
-            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundImage: `url(${mobileBackgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', zIndex: 0 }} />
+            <div style={{ 
+              position: 'absolute', 
+              top: 0, 
+              left: 0, 
+              width: '100%', 
+              height: '100%', 
+              backgroundImage: `url(${mobileBackgroundImage})`, 
+              backgroundSize: 'cover', 
+              backgroundPosition: 'center', 
+              backgroundRepeat: 'no-repeat', 
+              zIndex: 0 
+            }} />
           )}
         </>
       )}
@@ -794,8 +812,8 @@ const WhatWeDo = () => {
         <div style={servicesGridStyles}>
           {services.map((service, index) => (
             <a href={service.link} key={index} className="service-card reveal" style={serviceCardStyles}>
-              <div style={serviceImageStyles}>
-                <img src={service.img} alt={service.title} loading="lazy" style={serviceImgStyles} />
+              <div style={serviceImageStyles} className="service-image">
+                <img src={service.img} alt={service.title} loading="lazy" style={serviceImgStyles} className="service-image-img" />
               </div>
               <div style={serviceContentStyles}>
                 <h3 style={serviceTitleStyles}>{service.title}</h3>
@@ -1114,7 +1132,7 @@ const Testimonials = () => {
   const testimonialsTrackStyles = {
     display: 'flex',
     gap: '40px',
-    animation: 'scroll-testimonials 40s linear infinite',
+    animation: 'scroll 40s linear infinite',
     width: 'max-content',
   };
   
@@ -1290,6 +1308,7 @@ const Footer = () => {
     color: 'white',
     transition: 'all 0.3s ease',
     fontSize: '1.1rem',
+    textDecoration: 'none',
   };
   
   const footerLinksStyles = {
@@ -1365,10 +1384,10 @@ const Footer = () => {
             <div>
               <h4 style={{ fontSize: '1rem', margin: '20px 0 15px', color: 'rgba(255,255,255,0.8)', fontWeight: 600 }}>Follow Us</h4>
               <div style={socialIconsStyles}>
-                <a href="https://www.facebook.com/share/1DEnuTKxai/" style={socialLinkStyles} target="_blank" rel="noopener noreferrer"><i className="bi bi-facebook"></i></a>
-                <a href="https://www.instagram.com/istazzmedia?igsh=MXVqbW9ydjk2M2hkYQ==" style={socialLinkStyles} target="_blank" rel="noopener noreferrer"><i className="bi bi-instagram"></i></a>
-                <a href="#" style={socialLinkStyles} target="_blank" rel="noopener noreferrer"><i className="bi bi-twitter"></i></a>
-                <a href="https://youtube.com/@istazzmedia-gig?si=HsHSVKgYco8G-lao" style={socialLinkStyles} target="_blank" rel="noopener noreferrer"><i className="bi bi-youtube"></i></a>
+                <a href="https://www.facebook.com/share/1DEnuTKxai/" style={socialLinkStyles} target="_blank" rel="noopener noreferrer" className="social-link"><i className="bi bi-facebook"></i></a>
+                <a href="https://www.instagram.com/istazzmedia?igsh=MXVqbW9ydjk2M2hkYQ==" style={socialLinkStyles} target="_blank" rel="noopener noreferrer" className="social-link"><i className="bi bi-instagram"></i></a>
+                <a href="#" style={socialLinkStyles} target="_blank" rel="noopener noreferrer" className="social-link"><i className="bi bi-twitter"></i></a>
+                <a href="https://youtube.com/@istazzmedia-gig?si=HsHSVKgYco8G-lao" style={socialLinkStyles} target="_blank" rel="noopener noreferrer" className="social-link"><i className="bi bi-youtube"></i></a>
               </div>
             </div>
           </div>
