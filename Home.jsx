@@ -517,6 +517,7 @@ const Header = () => {
 };
 
 // Hero Section Component - Mobile: image background, Desktop: video background
+// Hero Section Component - Mobile: image background, Desktop: video background
 const Hero = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
@@ -576,13 +577,29 @@ const Hero = () => {
     overflow: 'hidden',
   };
   
+  // Mobile background image container - separate from video
+  const mobileBgStyles = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: '100%',
+    height: '100%',
+    backgroundImage: `url(${mobileBackgroundImage})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    zIndex: 0,
+  };
+  
   const heroOverlayStyles = {
     position: 'absolute',
     top: 0,
     left: 0,
     width: '100%',
     height: '100%',
-    background: 'linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6))',
+    background: 'linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.7))',
     zIndex: 1,
   };
   
@@ -596,30 +613,30 @@ const Hero = () => {
   };
   
   const heroTaglineStyles = {
-    fontSize: isMobile ? '32px' : '48px',
+    fontSize: isMobile ? '28px' : '48px',
     fontWeight: 700,
     marginBottom: '20px',
     lineHeight: 1.2,
     color: 'white',
-    textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
+    textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
   };
   
   const heroDescriptionStyles = {
-    fontSize: isMobile ? '16px' : '18px',
+    fontSize: isMobile ? '14px' : '18px',
     marginBottom: '40px',
     lineHeight: 1.6,
-    color: 'rgba(255,255,255,0.9)',
-    textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
+    color: 'rgba(255,255,255,0.95)',
+    textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
   };
   
   const ctaButtonStyles = {
     display: 'inline-block',
-    padding: isMobile ? '12px 30px' : '15px 40px',
+    padding: isMobile ? '10px 25px' : '15px 40px',
     background: 'linear-gradient(135deg, #ff3366, #3366ff)',
     color: '#fff',
     textDecoration: 'none',
     fontWeight: 600,
-    fontSize: isMobile ? '14px' : '16px',
+    fontSize: isMobile ? '13px' : '16px',
     borderRadius: '30px',
     transition: 'all 0.3s ease',
     boxShadow: '0 5px 15px rgba(255,51,102,0.3)',
@@ -628,31 +645,22 @@ const Hero = () => {
   
   const logoStyles = {
     position: 'absolute',
-    top: isMobile ? '80px' : '120px',
+    top: isMobile ? '70px' : '120px',
     left: '50%',
     transform: 'translateX(-50%)',
-    width: isMobile ? '120px' : '180px',
+    width: isMobile ? '100px' : '180px',
     height: 'auto',
-    zIndex: 10,
+    zIndex: 15,
     cursor: 'pointer',
   };
   
   return (
     <section style={heroStyles}>
       {isMobile ? (
-        <div style={{ 
-          position: 'absolute', 
-          top: 0, 
-          left: 0, 
-          width: '100%', 
-          height: '100%', 
-          backgroundImage: `url(${mobileBackgroundImage})`, 
-          backgroundSize: 'cover', 
-          backgroundPosition: 'center', 
-          backgroundRepeat: 'no-repeat', 
-          zIndex: 0 
-        }} />
+        // Mobile: Static background image
+        <div style={mobileBgStyles} />
       ) : (
+        // Desktop: Video background
         <>
           <video
             ref={videoRef}
@@ -678,21 +686,11 @@ const Hero = () => {
             <source src={videoUrl} type="video/mp4" />
           </video>
           {videoError && (
-            <div style={{ 
-              position: 'absolute', 
-              top: 0, 
-              left: 0, 
-              width: '100%', 
-              height: '100%', 
-              backgroundImage: `url(${mobileBackgroundImage})`, 
-              backgroundSize: 'cover', 
-              backgroundPosition: 'center', 
-              backgroundRepeat: 'no-repeat', 
-              zIndex: 0 
-            }} />
+            <div style={mobileBgStyles} />
           )}
         </>
       )}
+      {/* Overlay for better text readability */}
       <div style={heroOverlayStyles}></div>
       <img 
         src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1760854267/logo_fx72mz.webp"
