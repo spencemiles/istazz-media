@@ -524,143 +524,133 @@ const Hero = () => {
   const videoRef = useRef(null);
   const { width } = useWindowSize();
   const isMobile = width <= 768;
-  
-  const mobileBackgroundImage = "https://res.cloudinary.com/dekdxx6yx/image/upload/v1778591270/ChatGPT_Image_May_12_2026_04_07_16_PM_ezt41n.png";
-  const videoUrl = "https://res.cloudinary.com/dekdxx6yx/video/upload/homescreenvideo_h282qv.mp4";
-  
+
+  const mobileBackgroundImage =
+    "https://res.cloudinary.com/dekdxx6yx/image/upload/v1778591270/ChatGPT_Image_May_12_2026_04_07_16_PM_ezt41n.png";
+
+  const videoUrl =
+    "https://res.cloudinary.com/dekdxx6yx/video/upload/v1778607025/homescreenvideo_h282qv.mp4";
+
   useEffect(() => {
-    const heroTagline = document.querySelector('.hero-tagline');
-    const heroDescription = document.querySelector('.hero-description');
-    const ctaButton = document.querySelector('.hero .cta-button');
-    
-    if (heroTagline) heroTagline.classList.add('reveal');
-    if (heroDescription) heroDescription.classList.add('reveal');
-    if (ctaButton) ctaButton.classList.add('reveal');
-    
+    const heroTagline = document.querySelector(".hero-tagline");
+    const heroDescription = document.querySelector(".hero-description");
+    const ctaButton = document.querySelector(".hero .cta-button");
+
+    heroTagline?.classList.add("reveal");
+    heroDescription?.classList.add("reveal");
+    ctaButton?.classList.add("reveal");
+
     if (!isMobile) {
-      const preloadVideo = document.createElement('video');
-      preloadVideo.preload = 'auto';
-      preloadVideo.src = videoUrl;
-      preloadVideo.muted = true;
-      
-      const handleVideoReady = () => {
+      const video = document.createElement("video");
+      video.src = videoUrl;
+      video.preload = "auto";
+      video.muted = true;
+      video.playsInline = true;
+
+      const handleReady = () => {
         setVideoLoaded(true);
-        setTimeout(() => {
-          if (videoRef.current) {
-            videoRef.current.play().catch(e => console.log('Autoplay prevented:', e));
-          }
-        }, 100);
+        videoRef.current?.play().catch(() => {});
       };
-      
-      const handleVideoError = () => {
+
+      const handleError = () => {
         setVideoError(true);
       };
-      
-      preloadVideo.addEventListener('canplaythrough', handleVideoReady);
-      preloadVideo.addEventListener('error', handleVideoError);
-      preloadVideo.load();
-      
+
+      video.addEventListener("canplaythrough", handleReady);
+      video.addEventListener("error", handleError);
+      video.load();
+
       return () => {
-        preloadVideo.removeEventListener('canplaythrough', handleVideoReady);
-        preloadVideo.removeEventListener('error', handleVideoError);
-        preloadVideo.src = '';
+        video.removeEventListener("canplaythrough", handleReady);
+        video.removeEventListener("error", handleError);
+        video.src = "";
       };
     }
   }, [isMobile]);
-  
+
   const heroStyles = {
-    height: '100vh',
-    position: 'relative',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
+    height: "100vh",
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
   };
-  
-  // Mobile background image container - separate from video
+
   const mobileBgStyles = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    width: '100%',
-    height: '100%',
+    position: "absolute",
+    inset: 0,
+    width: "100%",
+    height: "100%",
     backgroundImage: `url(${mobileBackgroundImage})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
+    backgroundSize: "cover",
+    backgroundPosition: "center",
     zIndex: 0,
   };
-  
+
   const heroOverlayStyles = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    background: 'linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.7))',
+    position: "absolute",
+    inset: 0,
+    background:
+      "linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.75))",
     zIndex: 1,
   };
-  
+
   const heroContentStyles = {
-    textAlign: 'center',
-    maxWidth: '800px',
-    padding: '0 20px',
-    position: 'relative',
+    textAlign: "center",
+    maxWidth: "800px",
+    padding: "0 20px",
+    position: "relative",
     zIndex: 2,
-    color: 'white',
+    color: "white",
   };
-  
+
+  // 🔥 REDUCED TITLE SIZE
   const heroTaglineStyles = {
-    fontSize: isMobile ? '28px' : '48px',
+    fontSize: isMobile ? "20px" : "38px",
     fontWeight: 700,
-    marginBottom: '20px',
+    marginBottom: "18px",
     lineHeight: 1.2,
-    color: 'white',
-    textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+    color: "white",
+    textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
   };
-  
+
+  // 🔥 REDUCED DESCRIPTION SIZE
   const heroDescriptionStyles = {
-    fontSize: isMobile ? '14px' : '18px',
-    marginBottom: '40px',
+    fontSize: isMobile ? "12px" : "15px",
+    marginBottom: "32px",
     lineHeight: 1.6,
-    color: 'rgba(255,255,255,0.95)',
-    textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
+    color: "rgba(255,255,255,0.92)",
   };
-  
+
   const ctaButtonStyles = {
-    display: 'inline-block',
-    padding: isMobile ? '10px 25px' : '15px 40px',
-    background: 'linear-gradient(135deg, #ff3366, #3366ff)',
-    color: '#fff',
-    textDecoration: 'none',
+    display: "inline-block",
+    padding: isMobile ? "9px 22px" : "13px 34px",
+    background: "linear-gradient(135deg, #ff3366, #3366ff)",
+    color: "#fff",
+    textDecoration: "none",
     fontWeight: 600,
-    fontSize: isMobile ? '13px' : '16px',
-    borderRadius: '30px',
-    transition: 'all 0.3s ease',
-    boxShadow: '0 5px 15px rgba(255,51,102,0.3)',
-    cursor: 'pointer',
+    fontSize: isMobile ? "12px" : "15px",
+    borderRadius: "30px",
+    transition: "all 0.3s ease",
+    boxShadow: "0 5px 15px rgba(255,51,102,0.3)",
+    cursor: "pointer",
   };
-  
+
   const logoStyles = {
-    position: 'absolute',
-    top: isMobile ? '70px' : '120px',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    width: isMobile ? '100px' : '180px',
-    height: 'auto',
+    position: "absolute",
+    top: isMobile ? "70px" : "120px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    width: isMobile ? "95px" : "170px",
     zIndex: 15,
-    cursor: 'pointer',
   };
-  
+
   return (
     <section style={heroStyles}>
       {isMobile ? (
-        // Mobile: Static background image
         <div style={mobileBgStyles} />
       ) : (
-        // Desktop: Video background
         <>
           <video
             ref={videoRef}
@@ -669,39 +659,48 @@ const Hero = () => {
             loop
             playsInline
             preload="auto"
-            style={{ 
-              position: 'absolute', 
-              top: 0, 
-              left: 0, 
-              width: '100%', 
-              height: '100%', 
-              objectFit: 'cover', 
-              zIndex: 0, 
-              opacity: videoLoaded ? 1 : 0, 
-              transition: 'opacity 0.5s ease-out' 
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              zIndex: 0,
+              opacity: videoLoaded ? 1 : 0,
+              transition: "opacity 0.6s ease",
             }}
             onCanPlay={() => setVideoLoaded(true)}
             onError={() => setVideoError(true)}
           >
             <source src={videoUrl} type="video/mp4" />
           </video>
-          {videoError && (
-            <div style={mobileBgStyles} />
-          )}
+
+          {videoError && <div style={mobileBgStyles} />}
         </>
       )}
-      {/* Overlay for better text readability */}
+
       <div style={heroOverlayStyles}></div>
-      <img 
+
+      <img
         src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1760854267/logo_fx72mz.webp"
         alt="Istazz Logo"
         style={logoStyles}
         loading="eager"
       />
+
       <div style={heroContentStyles}>
-        <h1 className="hero-tagline" style={heroTaglineStyles}>Your Vision, Elevated, Experience More</h1>
-        <p className="hero-description" style={heroDescriptionStyles}>We transform ideas into immersive visual experiences through cinematic storytelling, innovative design, and cutting-edge production.</p>
-        <a href="/services" className="cta-button" style={ctaButtonStyles}>Dive In to The Istazz Show</a>
+        <h1 className="hero-tagline" style={heroTaglineStyles}>
+          Your Vision, Elevated, Experience More
+        </h1>
+
+        <p className="hero-description" style={heroDescriptionStyles}>
+          We transform ideas into immersive visual experiences through cinematic
+          storytelling, innovative design, and cutting-edge production.
+        </p>
+
+        <a href="/services" className="cta-button" style={ctaButtonStyles}>
+          Dive In to The Istazz Show
+        </a>
       </div>
     </section>
   );
@@ -1242,7 +1241,7 @@ const CTASection = () => {
       <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
         <h2 className="cta-title reveal" style={ctaTitleStyles}>Let's Create Together</h2>
         <p className="cta-description reveal" style={ctaDescriptionStyles}>Ready to elevate your brand and create unforgettable experiences? Get in touch with our team today.</p>
-        <a href="/contactus" className="cta-button white" style={ctaButtonStyles}>Contact Us</a>
+        <a href="contactus.html" className="cta-button white" style={ctaButtonStyles}>Contact Us</a>
       </div>
     </section>
   );
