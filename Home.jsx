@@ -72,45 +72,48 @@ const Header = () => {
   return (
     <>
       {/* Desktop Header */}
-      <header className="desktop-header">
-        <div className="header-container">
-          <a href="/" className="logo">
-            <img 
-              src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1760854267/logo_fx72mz.webp" 
-              alt="Istazz Media Logo"
-              loading="eager"
-            />
-            <div className="logo-tagline">creative simplicity</div>
-          </a>
-          
-          <nav>
-            <div className="nav-blue-section"></div>
-            <ul className="nav-menu">
-              <li><a href="/" className="active">Home</a></li>
-              <li 
-                className="dropdown"
-                onMouseEnter={() => setDropdownOpen(true)}
-                onMouseLeave={() => setDropdownOpen(false)}
-              >
-                <a href="/services">Services <i className="fas fa-chevron-down"></i></a>
-                {dropdownOpen && (
-                  <div className="dropdown-content">
-                    <a href="/design">Branding</a>
-                    <a href="/events">Events</a>
-                    <a href="/production">Production</a>
-                    <a href="/prandmediarelations">PR & Media Relations</a>
-                    <a href="/consultation">Consultation</a>
-                  </div>
-                )}
-              </li>
-              <li><a href="/ourwork">Our Work</a></li>
-              <li><a href="/ourclients">Clients</a></li>
-              <li><a href="/aboutus">About Us</a></li>
-              <li><a href="/contactus">Contact</a></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
+     <header className="desktop-header">
+  <div className="header-container">
+    <a href="index.html" className="logo">
+      <img 
+        src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1760854267/logo_fx72mz.webp" 
+        alt="Istazz Media Logo"
+        loading="eager"
+      />
+      <div className="logo-tagline">creative simplicity</div>
+    </a>
+    
+    <nav>
+      <div className="nav-blue-section"></div>
+      <ul className="nav-menu">
+        <li><a href="index.html" className="active">Home</a></li>
+
+        <li 
+          className="dropdown"
+          onMouseEnter={() => setDropdownOpen(true)}
+          onMouseLeave={() => setDropdownOpen(false)}
+        >
+          <a href="services.html">Services <i className="fas fa-chevron-down"></i></a>
+
+          {dropdownOpen && (
+            <div className="dropdown-content">
+              <a href="design.html">Branding</a>
+              <a href="events.html">Events</a>
+              <a href="production.html">Production</a>
+              <a href="prandmediarelations.html">PR & Media Relations</a>
+              <a href="consultation.html">Consultation</a>
+            </div>
+          )}
+        </li>
+
+        <li><a href="ourwork.html">Our Work</a></li>
+        <li><a href="ourclients.html">Clients</a></li>
+        <li><a href="aboutus.html">About Us</a></li>
+        <li><a href="contactus.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
       {/* Mobile Top Header */}
       <div className="mobile-top-header">
