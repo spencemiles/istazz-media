@@ -1269,23 +1269,23 @@
         </div>
         <div class="dropup-links">
             <a href="design.html" class="dropup-link">
-                <span class="link-icon">🎨</span>
+                <span class="link-icon"></span>
                 <span class="link-text">Branding</span>
             </a>
             <a href="events.html" class="dropup-link">
-                <span class="link-icon">🎪</span>
+                <span class="link-icon"></span>
                 <span class="link-text">Events</span>
             </a>
             <a href="production.html" class="dropup-link">
-                <span class="link-icon">🎬</span>
+                <span class="link-icon"></span>
                 <span class="link-text">Production</span>
             </a>
             <a href="prandmediarelations.html" class="dropup-link">
-                <span class="link-icon">📰</span>
+                <span class="link-icon"></span>
                 <span class="link-text">PR & Media Relations</span>
             </a>
             <a href="consultation.html" class="dropup-link">
-                <span class="link-icon">💻</span>
+                <span class="link-icon"></span>
                <span class="link-text">Consultation</span>
             </a>
         </div>
@@ -2721,23 +2721,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     <!-- Branding Hero Section -->
-    <section class="branding-hero" id="branding">
-        <video class="hero-video" autoplay muted loop>
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-typing-on-laptop-5093-large.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="branding-hero-content">
-            <div class="branding-staircase-text">
-                <div class="branding-text-line">Branding:</div>
-                <div class="branding-text-line">Harness Creativity,</div>
-                <div class="branding-text-line">Craft Identity,</div>
-                <div class="branding-text-line">Impact</div>
-            </div>
-            <p class="branding-hero-description">From concept to completion, we transform brands into powerful visual experiences that resonate, inspire, and drive results.</p>
-            <!-- FIXED: Changed from anchor link to contact page -->
-            <a href="contactus.html" class="branding-hero-btn">Start Your Brand Journey</a>
+   <section class="branding-hero" id="branding">
+    
+    <video class="hero-video" autoplay muted loop preload="none" playsinline>
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-typing-on-laptop-5093-large.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="branding-hero-content">
+        <div class="branding-staircase-text">
+            <div class="branding-text-line">Branding:</div>
+            <div class="branding-text-line">Harness Creativity,</div>
+            <div class="branding-text-line">Craft Identity,</div>
+            <div class="branding-text-line">Impact</div>
         </div>
-    </section>
+
+        <p class="branding-hero-description">
+            From concept to completion, we transform brands into powerful visual experiences that resonate, inspire, and drive results.
+        </p>
+
+        <a href="contactus.html" class="branding-hero-btn">
+            Start Your Brand Journey
+        </a>
+    </div>
+
+</section>
 
     <!-- Design & Digital Presence Section -->
  <section class="branding-section" id="branding">
@@ -2750,10 +2758,13 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="branding-cards">
 
             <!-- Corporate & Promotional Branding -->
-            <a href="CorporatePromotionalBranding.html" class="card-link-wrapper">
+            <a href="/CorporatePromotionalBranding.html" class="card-link-wrapper">
                 <div class="branding-card">
-                    <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1777130979/WhatsApp_Image_2026-04-21_at_6.59.37_PM_dtq32p.jpg" 
-                         alt="Corporate & Promotional Branding" class="card-image">
+                    <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/f_auto,q_auto/v1777130979/WhatsApp_Image_2026-04-21_at_6.59.37_PM_dtq32p.jpg" 
+                         alt="Corporate & Promotional Branding"
+                         class="card-image"
+                         loading="lazy">
+
                     <div class="card-content">
                         <div class="card-header">
                             <div class="card-icon">
@@ -2761,9 +2772,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <h3 class="card-title">Corporate & Promotional Branding</h3>
                         </div>
+
                         <p class="card-description">
                             Strengthen your brand identity with professional corporate and promotional branding that communicates trust, credibility, and impact.
                         </p>
+
                         <div class="card-tags">
                             <span class="card-tag">Corporate</span>
                             <span class="card-tag">Promotional</span>
@@ -2774,10 +2787,13 @@ document.addEventListener('DOMContentLoaded', function() {
             </a>
 
             <!-- Design & Digital Presence -->
-            <a href="design&digitalpresence.html" class="card-link-wrapper">
+            <a href="/design&digitalpresence.html" class="card-link-wrapper">
                 <div class="branding-card">
                     <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" 
-                         alt="Design & Digital Presence" class="card-image">
+                         alt="Design & Digital Presence"
+                         class="card-image"
+                         loading="lazy">
+
                     <div class="card-content">
                         <div class="card-header">
                             <div class="card-icon">
@@ -2785,9 +2801,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <h3 class="card-title">Design & Digital Presence</h3>
                         </div>
+
                         <p class="card-description">
                             We design engaging digital experiences that elevate your online presence and ensure your brand stands out across platforms.
                         </p>
+
                         <div class="card-tags">
                             <span class="card-tag">Digital</span>
                             <span class="card-tag">Design</span>
@@ -2798,10 +2816,13 @@ document.addEventListener('DOMContentLoaded', function() {
             </a>
 
             <!-- Event Branding -->
-            <a href="events.html" class="card-link-wrapper">
+            <a href="/events.html" class="card-link-wrapper">
                 <div class="branding-card">
-                    <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1776960578/istazz_mosse_image_1_wasmjg.jpg" 
-                         alt="Event Branding" class="card-image">
+                    <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/f_auto,q_auto/v1776960578/istazz_mosse_image_1_wasmjg.jpg" 
+                         alt="Event Branding"
+                         class="card-image"
+                         loading="lazy">
+
                     <div class="card-content">
                         <div class="card-header">
                             <div class="card-icon">
@@ -2809,9 +2830,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <h3 class="card-title">Event Branding</h3>
                         </div>
+
                         <p class="card-description">
                             Make your events unforgettable with cohesive branding that transforms venues into immersive brand experiences.
                         </p>
+
                         <div class="card-tags">
                             <span class="card-tag">Events</span>
                             <span class="card-tag">Experience</span>
@@ -2822,10 +2845,13 @@ document.addEventListener('DOMContentLoaded', function() {
             </a>
 
             <!-- Installations & Wall Branding -->
-            <a href="Installations&WallBranding.html" class="card-link-wrapper">
+            <a href="/Installations&WallBranding.html" class="card-link-wrapper">
                 <div class="branding-card">
-                    <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1761058076/IMG-20250204-WA0028_sxqaxc.jpg" 
-                         alt="Installations & Wall Branding" class="card-image">
+                    <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/f_auto,q_auto/v1761058076/IMG-20250204-WA0028_sxqaxc.jpg" 
+                         alt="Installations & Wall Branding"
+                         class="card-image"
+                         loading="lazy">
+
                     <div class="card-content">
                         <div class="card-header">
                             <div class="card-icon">
@@ -2833,9 +2859,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <h3 class="card-title">Installations & Wall Branding</h3>
                         </div>
+
                         <p class="card-description">
                             Bring your brand to life in physical spaces with professional installations, wall branding, and large-format visuals.
                         </p>
+
                         <div class="card-tags">
                             <span class="card-tag">Installations</span>
                             <span class="card-tag">Wall Branding</span>
@@ -2861,196 +2889,234 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 </style>
-    <!-- Event Branding -->
-    <section class="branding-section" id="event">
-        <div class="container">
-            <h2>Event Branding</h2>
-            <p class="section-description">
-                "A Journey into an unforgettable brand experience." We transform event spaces into immersive brand environments that create lasting impressions and memorable experiences.
-            </p>
+   <!-- Event Branding -->
+<section class="branding-section" id="event">
+    <div class="container">
+        <h2>Event Branding</h2>
+        <p class="section-description">
+            "A Journey into an unforgettable brand experience." We transform event spaces into immersive brand environments that create lasting impressions and memorable experiences.
+        </p>
 
-            <!-- Event Gallery -->
-            <div class="event-gallery">
-                <div class="event-item">
-                    <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1777621951/IMG-20250212-WA0161_xlfnsl.jpg" 
-                         alt="Stage Branding">
-                    <div class="event-info">
-                        <h3>Stage & Screen Cladding</h3>
-                        <p>Dramatic stage setups with branded backdrops and large screen installations</p>
-                    </div>
-                </div>
-                <div class="event-item">
-                    <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1777621931/IMG-20250212-WA0093_mmgxhj.jpg" 
-                         alt="Venue Branding">
-                    <div class="event-info">
-                        <h3>Venue Branding</h3>
-                        <p>Tear-drops, media banners, canvas banners, and telescopic displays</p>
-                    </div>
-                </div>
-                <div class="event-item">
-                    <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1777621964/IMG-20250212-WA0192_relvdu.jpg" 
-                         alt="Concept Assets">
-                    <div class="event-info">
-                        <h3>Concept Assets & Fabrication</h3>
-                        <p>Custom booths, unique props, intricate display stands, and photo booths</p>
-                    </div>
+        <!-- Event Gallery -->
+        <div class="event-gallery">
+
+            <div class="event-item">
+                <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/f_auto,q_auto/v1777621951/IMG-20250212-WA0161_xlfnsl.jpg" 
+                     alt="Stage Branding"
+                     loading="lazy">
+                <div class="event-info">
+                    <h3>Stage & Screen Cladding</h3>
+                    <p>Dramatic stage setups with branded backdrops and large screen installations</p>
                 </div>
             </div>
 
-            <div class="branding-cards">
-                <!-- Event Installations -->
-                <div class="branding-card">
-                    <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1777621933/IMG-20250212-WA0098_wtibyb.jpg" 
-                         alt="Event Installations" class="card-image">
-                    <div class="card-content">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                <i class="fas fa-theater-masks"></i>
-                            </div>
-                            <h3 class="card-title">Event Installations</h3>
-                        </div>
-                        <p class="card-description">
-                            Complete event branding solutions including stage setups, venue dressing, and immersive brand experiences.
-                        </p>
-                        <ul class="card-features">
-                            <li>Complete stage branding</li>
-                            <li>Venue transformation</li>
-                            <li>Immersive experiences</li>
-                            <li>Interactive installations</li>
-                        </ul>
-                        <div class="card-tags">
-                            <span class="card-tag">Events</span>
-                            <span class="card-tag">Installations</span>
-                            <span class="card-tag hotpink">Immersive</span>
-                        </div>
-                        <!-- FIXED: Changed from #events to actual page -->
-                        <a href="events.html" class="card-link">View Event Portfolio <i class="fas fa-arrow-right"></i></a>
-                    </div>
+            <div class="event-item">
+                <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/f_auto,q_auto/v1777621931/IMG-20250212-WA0093_mmgxhj.jpg" 
+                     alt="Venue Branding"
+                     loading="lazy">
+                <div class="event-info">
+                    <h3>Venue Branding</h3>
+                    <p>Tear-drops, media banners, canvas banners, and telescopic displays</p>
                 </div>
             </div>
+
+            <div class="event-item">
+                <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/f_auto,q_auto/v1777621964/IMG-20250212-WA0192_relvdu.jpg" 
+                     alt="Concept Assets"
+                     loading="lazy">
+                <div class="event-info">
+                    <h3>Concept Assets & Fabrication</h3>
+                    <p>Custom booths, unique props, intricate display stands, and photo booths</p>
+                </div>
+            </div>
+
         </div>
-    </section>
 
+        <div class="branding-cards">
+
+            <!-- Event Installations -->
+            <div class="branding-card">
+                <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/f_auto,q_auto/v1777621933/IMG-20250212-WA0098_wtibyb.jpg" 
+                     alt="Event Installations"
+                     class="card-image"
+                     loading="lazy">
+
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-theater-masks"></i>
+                        </div>
+                        <h3 class="card-title">Event Installations</h3>
+                    </div>
+
+                    <p class="card-description">
+                        Complete event branding solutions including stage setups, venue dressing, and immersive brand experiences.
+                    </p>
+
+                    <ul class="card-features">
+                        <li>Complete stage branding</li>
+                        <li>Venue transformation</li>
+                        <li>Immersive experiences</li>
+                        <li>Interactive installations</li>
+                    </ul>
+
+                    <div class="card-tags">
+                        <span class="card-tag">Events</span>
+                        <span class="card-tag">Installations</span>
+                        <span class="card-tag hotpink">Immersive</span>
+                    </div>
+
+                    <a href="/events.html" class="card-link">
+                        View Event Portfolio <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
     <!-- Installations & Wall Branding -->
-    <section class="branding-section" id="installations">
-        <div class="container">
-            <h2>Installations & Wall Branding</h2>
-            <p class="section-description">
-                "Let Your Outside Speak For Itself." We create impactful exterior branding solutions that transform buildings, infrastructure, and public spaces into powerful brand statements.
-            </p>
+<section class="branding-section" id="installations">
+    <div class="container">
+        <h2>Installations & Wall Branding</h2>
+        <p class="section-description">
+            "Let Your Outside Speak For Itself." We create impactful exterior branding solutions that transform buildings, infrastructure, and public spaces into powerful brand statements.
+        </p>
 
-            <!-- Infrastructure Gallery -->
-            <div class="infrastructure-gallery">
-                <div class="infrastructure-item">
-                    <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1761058111/IMG-20250204-WA0043_talj3r.jpg" 
-                         alt="Water Infrastructure">
-                    <div class="infrastructure-label">Water Infrastructure Branding</div>
-                </div>
-                <div class="infrastructure-item">
-                    <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1761057842/IMG-20250204-WA0014_mot38n.jpg" 
-                         alt="Wall Painting">
-                    <div class="infrastructure-label">Wall Branding & Painting</div>
-                </div>
-                <div class="infrastructure-item">
-                    <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1777621890/IMG-20250204-WA0064_usdrno.jpg" 
-                         alt="Signage">
-                    <div class="infrastructure-label">Signage & Wayfinding</div>
-                </div>
+        <!-- Infrastructure Gallery -->
+        <div class="infrastructure-gallery">
+            <div class="infrastructure-item">
+                <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1761058111/IMG-20250204-WA0043_talj3r.jpg" 
+                     alt="Water Infrastructure">
+                <div class="infrastructure-label">Water Infrastructure Branding</div>
             </div>
 
-            <div class="branding-cards">
-                <!-- Water Infrastructure -->
-                <div class="branding-card">
-                    <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1777621886/IMG-20250204-WA0061_kyy1jr.jpg" 
-                         alt="Water Infrastructure" class="card-image">
-                    <div class="card-content">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                <i class="fas fa-water"></i>
-                            </div>
-                            <h3 class="card-title">Water Infrastructure Branding</h3>
-                        </div>
-                        <p class="card-description">
-                            Drone footage and wide-angle photography showcasing branded elevated steel tanks, pump houses, borehole chambers, and water treatment plants.
-                        </p>
-                        <ul class="card-features">
-                            <li>Large-scale infrastructure branding</li>
-                            <li>Industrial facility graphics</li>
-                            <li>Public utility branding</li>
-                            <li>Safety and wayfinding signage</li>
-                        </ul>
-                        <div class="card-tags">
-                            <span class="card-tag">Industrial</span>
-                            <span class="card-tag">Infrastructure</span>
-                            <span class="card-tag hotpink">Large-scale</span>
-                        </div>
-                        <!-- FIXED: Changed from #infrastructure to actual page -->
-                        <a href="Installations&WallBranding.html" class="card-link">View Projects <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
+            <div class="infrastructure-item">
+                <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1761057842/IMG-20250204-WA0014_mot38n.jpg" 
+                     alt="Wall Painting">
+                <div class="infrastructure-label">Wall Branding & Painting</div>
+            </div>
 
-                <!-- Wall Branding -->
-                <div class="branding-card">
-                    <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1777621884/IMG-20250204-WA0005_wiek2z.jpg" 
-                         alt="Wall Branding" class="card-image">
-                    <div class="card-content">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                <i class="fas fa-paint-roller"></i>
-                            </div>
-                            <h3 class="card-title">Wall Branding</h3>
-                        </div>
-                        <p class="card-description">
-                            Before-and-after photography of painted walls showcasing dramatic transformations and intricate design implementations.
-                        </p>
-                        <ul class="card-features">
-                            <li>Exterior wall murals</li>
-                            <li>Interior feature walls</li>
-                            <li>Corporate office branding</li>
-                            <li>Retail space transformation</li>
-                        </ul>
-                        <div class="card-tags">
-                            <span class="card-tag">Murals</span>
-                            <span class="card-tag">Painting</span>
-                            <span class="card-tag hotpink">Transformation</span>
-                        </div>
-                        <!-- FIXED: Changed from #walls to actual page -->
-                        <a href="Installations&WallBranding.html" class="card-link">View Wall Gallery <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-
-                <!-- Signage -->
-                <div class="branding-card">
-                    <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1777621901/IMG-20250212-WA0010_t1nbpk.jpg" 
-                         alt="Signage" class="card-image">
-                    <div class="card-content">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                <i class="fas fa-sign"></i>
-                            </div>
-                            <h3 class="card-title">Signage</h3>
-                        </div>
-                        <p class="card-description">
-                            Comprehensive signage solutions including 3D/2D signs, road signs, lightboxes, and captivating neon signs with nighttime illumination.
-                        </p>
-                        <ul class="card-features">
-                            <li>3D illuminated signage</li>
-                            <li>Wayfinding systems</li>
-                            <li>Neon and LED signs</li>
-                            <li>Architectural signage</li>
-                        </ul>
-                        <div class="card-tags">
-                            <span class="card-tag">Signage</span>
-                            <span class="card-tag">Wayfinding</span>
-                            <span class="card-tag hotpink">Illuminated</span>
-                        </div>
-                        <!-- FIXED: Changed from #signage to actual page -->
-                        <a href="Installations&WallBranding.html" class="card-link">Explore Signage <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
+            <div class="infrastructure-item">
+                <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1777621890/IMG-20250204-WA0064_usdrno.jpg" 
+                     alt="Signage">
+                <div class="infrastructure-label">Signage & Wayfinding</div>
             </div>
         </div>
-    </section>
+
+        <div class="branding-cards">
+
+            <!-- Water Infrastructure -->
+            <div class="branding-card">
+                <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1777621886/IMG-20250204-WA0061_kyy1jr.jpg" 
+                     alt="Water Infrastructure" class="card-image">
+
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-water"></i>
+                        </div>
+                        <h3 class="card-title">Water Infrastructure Branding</h3>
+                    </div>
+
+                    <p class="card-description">
+                        Drone footage and wide-angle photography showcasing branded elevated steel tanks, pump houses, borehole chambers, and water treatment plants.
+                    </p>
+
+                    <ul class="card-features">
+                        <li>Large-scale infrastructure branding</li>
+                        <li>Industrial facility graphics</li>
+                        <li>Public utility branding</li>
+                        <li>Safety and wayfinding signage</li>
+                    </ul>
+
+                    <div class="card-tags">
+                        <span class="card-tag">Industrial</span>
+                        <span class="card-tag">Infrastructure</span>
+                        <span class="card-tag hotpink">Large-scale</span>
+                    </div>
+
+                    <a href="/installations-wall-branding.html" class="card-link">
+                        View Projects <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Wall Branding -->
+            <div class="branding-card">
+                <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1777621884/IMG-20250204-WA0005_wiek2z.jpg" 
+                     alt="Wall Branding" class="card-image">
+
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-paint-roller"></i>
+                        </div>
+                        <h3 class="card-title">Wall Branding</h3>
+                    </div>
+
+                    <p class="card-description">
+                        Before-and-after photography of painted walls showcasing dramatic transformations and intricate design implementations.
+                    </p>
+
+                    <ul class="card-features">
+                        <li>Exterior wall murals</li>
+                        <li>Interior feature walls</li>
+                        <li>Corporate office branding</li>
+                        <li>Retail space transformation</li>
+                    </ul>
+
+                    <div class="card-tags">
+                        <span class="card-tag">Murals</span>
+                        <span class="card-tag">Painting</span>
+                        <span class="card-tag hotpink">Transformation</span>
+                    </div>
+
+                    <a href="/installations-wall-branding.html" class="card-link">
+                        View Wall Gallery <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Signage -->
+            <div class="branding-card">
+                <img src="https://res.cloudinary.com/dekdxx6yx/image/upload/v1777621901/IMG-20250212-WA0010_t1nbpk.jpg" 
+                     alt="Signage" class="card-image">
+
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-sign"></i>
+                        </div>
+                        <h3 class="card-title">Signage</h3>
+                    </div>
+
+                    <p class="card-description">
+                        Comprehensive signage solutions including 3D/2D signs, road signs, lightboxes, and captivating neon signs with nighttime illumination.
+                    </p>
+
+                    <ul class="card-features">
+                        <li>3D illuminated signage</li>
+                        <li>Wayfinding systems</li>
+                        <li>Neon and LED signs</li>
+                        <li>Architectural signage</li>
+                    </ul>
+
+                    <div class="card-tags">
+                        <span class="card-tag">Signage</span>
+                        <span class="card-tag">Wayfinding</span>
+                        <span class="card-tag hotpink">Illuminated</span>
+                    </div>
+
+                    <a href="/installations-wall-branding.html" class="card-link">
+                        Explore Signage <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 
     <!-- CTA Section -->
     <section class="cta" id="contact">
@@ -3170,28 +3236,35 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p class="footer-description">A uniquely structured media agency with an eye for excellence in branding, event management and production solutions, all with an urge to exceed customer expectations. We are founded on a philosophy of 'Creative Simplicity' where we seek to always use new and innovative techniques and solutions to meet the needs of our clients. Creativity is in our DNA.</p>
                     
                     <div class="social-links">
-                        <h4>Follow Us</h4>
-                        <div class="social-icons">
-                            <a href="https://www.facebook.com/share/1DEnuTKxai/" class="social-link" aria-label="Facebook">
-                                <i class="bi bi-facebook"></i>
-                            </a>
-                            <a href="https://www.instagram.com/istazzmedia?igsh=MXVqbW9ydjk2M2hkYQ==" class="social-link" aria-label="Instagram">
-                                <i class="bi bi-instagram"></i>
-                            </a>
-                            <a href="#" class="social-link" aria-label="Twitter">
-                                <i class="bi bi-twitter"></i>
-                            </a>
-                            <a href="https://youtube.com/@istazzmedia-gig?si=HsHSVKgYco8G-lao" class="social-link" aria-label="YouTube">
-                                <i class="bi bi-youtube"></i>
-                            </a>
-                            <a href="#" class="social-link" aria-label="LinkedIn">
-                                <i class="bi bi-linkedin"></i>
-                            </a>
-                            <a href="#" class="social-link" aria-label="Pinterest">
-                                <i class="bi bi-pinterest"></i>
-                            </a>
-                        </div>
-                    </div>
+    <h4>Follow Us</h4>
+    <div class="social-icons">
+
+        <a href="https://www.facebook.com/share/1DEnuTKxai/" class="social-link" aria-label="Facebook" loading="lazy">
+            <i class="bi bi-facebook"></i>
+        </a>
+
+        <a href="https://www.instagram.com/istazzmedia?igsh=MXVqbW9ydjk2M2hkYQ==" class="social-link" aria-label="Instagram" loading="lazy">
+            <i class="bi bi-instagram"></i>
+        </a>
+
+        <a href="#" class="social-link" aria-label="Twitter" loading="lazy">
+            <i class="bi bi-twitter"></i>
+        </a>
+
+        <a href="https://youtube.com/@istazzmedia-gig?si=HsHSVKgYco8G-lao" class="social-link" aria-label="YouTube" loading="lazy">
+            <i class="bi bi-youtube"></i>
+        </a>
+
+        <a href="#" class="social-link" aria-label="LinkedIn" loading="lazy">
+            <i class="bi bi-linkedin"></i>
+        </a>
+
+        <a href="#" class="social-link" aria-label="Pinterest" loading="lazy">
+            <i class="bi bi-pinterest"></i>
+        </a>
+
+    </div>
+</div>
                 </div>
 
                 <!-- Quick Links Section -->
@@ -3235,13 +3308,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         <li>
                             <a href="tel:+254725116708">
                                 <i class="bi bi-telephone"></i>
-                                <span> +254 768 521 862 <br><small>Business Hours</small></span>
+                                <span> +254768 521 862 <br><small>Business Hours</small></span>
                             </a>
                         </li>
                         <li>
                             <a href="tel:+254725116708">
                                 <i class="bi bi-phone"></i>
-                                <span> +254 768 521 862 <br><small>Emergency Support</small></span>
+                                <span> +254768 521 862 <br><small>Emergency Support</small></span>
                             </a>
                         </li>
                         <li>
@@ -3603,7 +3676,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         card.style.opacity = '1';
                         card.style.transform = 'translateY(0)';
                     }, index * 100);
-                }
+                }o b
             });
         }
         
