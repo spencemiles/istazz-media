@@ -2228,10 +2228,529 @@ document.addEventListener('DOMContentLoaded', function() {
             We transform ideas into immersive visual experiences through cinematic storytelling, innovative design, and cutting-edge production.
         </p>
 
-        <a href="services.html" class="cta-button reveal">
-            Dive In to The Istazz Show
-        </a>
+        <a href="services.html" class="glass-ocean-btn" id="hydroButton">
+    <span class="btn-text-core">Dive In to The Istazz Show</span>
+    
+    <!-- Glass effect layers (clean iOS style) -->
+    <span class="glass-fog-haze"></span>
+    <span class="glass-prism-flare"></span>
+    <span class="glass-edge-glow"></span>
+    
+    <style>
+        /* ============================================= */
+        /*  PREMIUM iOS GLASS BUTTON + LUXURY DROPLETS   */
+        /*  Enhanced hover & flowing water animation    */
+        /* ============================================= */
+        
+        .glass-ocean-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-family: -apple-system, 'SF Pro Text', 'Segoe UI', 'Poppins', system-ui, 'Inter', sans-serif;
+            padding: 1rem 2.6rem;
+            font-size: 1.45rem;
+            font-weight: 590;
+            letter-spacing: -0.2px;
+            color: #ffffff;
+            border-radius: 50px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 0.5px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+                        0 1px 0.5px rgba(255, 255, 255, 0.25) inset,
+                        0 -0.5px 0.5px rgba(0, 0, 0, 0.05) inset;
+            text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.2);
+            transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+            overflow: visible;
+            isolation: isolate;
+            z-index: 5;
+            white-space: nowrap;
+        }
+        
+        /* Premium glass shine sweep */
+        .glass-ocean-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -70%;
+            width: 55%;
+            height: 100%;
+            background: linear-gradient(100deg, 
+                        transparent, 
+                        rgba(255, 255, 255, 0.35), 
+                        transparent);
+            border-radius: 50px;
+            transition: left 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .glass-ocean-btn:hover::before {
+            left: 140%;
+        }
+        
+        /* Enhanced hover effect */
+        .glass-ocean-btn:hover {
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(28px) saturate(200%);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2),
+                        0 1px 1px rgba(255, 255, 255, 0.35) inset,
+                        0 0 20px rgba(100, 200, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.55);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .glass-ocean-btn:active {
+            transform: translateY(1px) scale(0.99);
+            background: rgba(255, 255, 255, 0.12);
+            transition: 0.05s linear;
+        }
+        
+        /* Soft fog/condensation layer */
+        .glass-fog-haze {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50px;
+            background: radial-gradient(ellipse at 30% 35%, 
+                        rgba(150, 210, 255, 0.15), 
+                        transparent 70%);
+            animation: fogPulsePremium 4s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        @keyframes fogPulsePremium {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.65; }
+        }
+        
+        /* Subtle prism/refraction */
+        .glass-prism-flare {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50px;
+            background: linear-gradient(125deg,
+                        rgba(255, 255, 255, 0.22) 0%,
+                        transparent 35%,
+                        transparent 68%,
+                        rgba(100, 200, 240, 0.12) 100%);
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        /* Edge glow on hover */
+        .glass-edge-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50px;
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            background: radial-gradient(circle at 30% 20%, 
+                        rgba(100, 210, 255, 0.3), 
+                        transparent 70%);
+        }
+        
+        .glass-ocean-btn:hover .glass-edge-glow {
+            opacity: 1;
+        }
+        
+        /* ========= PREMIUM FLOWING WATER DROPLETS ========= */
+        .aqua-droplet-item {
+            position: absolute;
+            background: radial-gradient(circle at 35% 35%, 
+                        rgba(255, 255, 255, 1), 
+                        rgba(120, 215, 255, 0.85),
+                        rgba(70, 180, 220, 0.5));
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(0.2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1),
+                        0 0 0 1px rgba(255, 255, 255, 0.8) inset,
+                        0 0 4px rgba(100, 200, 255, 0.5);
+            z-index: 45;
+            opacity: 0;
+            animation: dropletFlowingPremium var(--drop-duration, 2s) cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation-delay: var(--drop-delay, 0s);
+            width: var(--drop-size, 7px);
+            height: var(--drop-size, 7px);
+            left: var(--drop-left, 20%);
+            top: -18px;
+        }
+        
+        /* droplet highlight sparkle */
+        .aqua-droplet-item::after {
+            content: '';
+            position: absolute;
+            top: 15%;
+            left: 20%;
+            width: 28%;
+            height: 28%;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 50%;
+            filter: blur(0.3px);
+        }
+        
+        /* droplet tail/streak for realistic flow */
+        .aqua-droplet-item::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 35%;
+            width: 2px;
+            height: 10px;
+            background: linear-gradient(to bottom, rgba(100, 210, 255, 0.7), transparent);
+            border-radius: 2px;
+            filter: blur(0.5px);
+        }
+        
+        @keyframes dropletFlowingPremium {
+            0% {
+                transform: translateY(0) translateX(0) scale(0.25);
+                opacity: 0;
+            }
+            12% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(calc(100% + 35px)) translateX(var(--drop-drift, 10px)) scale(0.6);
+                opacity: 0;
+            }
+        }
+        
+        /* floating secondary bubbles (extra magic) */
+        .floating-bubble {
+            position: absolute;
+            background: radial-gradient(circle at 40% 35%, 
+                        rgba(255, 255, 255, 0.9), 
+                        rgba(100, 200, 240, 0.5));
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(0.3px);
+            box-shadow: 0 0 3px rgba(100, 200, 255, 0.4);
+            z-index: 44;
+            opacity: 0;
+            animation: bubbleFloatUp var(--bubble-duration, 1.8s) ease-out forwards;
+            animation-delay: var(--bubble-delay, 0s);
+            width: var(--bubble-size, 5px);
+            height: var(--bubble-size, 5px);
+            left: var(--bubble-left, 30%);
+            bottom: -10px;
+        }
+        
+        @keyframes bubbleFloatUp {
+            0% {
+                transform: translateY(0) translateX(0) scale(0.3);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            80% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-80px) translateX(var(--bubble-drift, -15px)) scale(0.5);
+                opacity: 0;
+            }
+        }
+        
+        /* Click ripple effect (premium water impact) */
+        .click-water-ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(100, 220, 255, 0.5), rgba(70, 180, 220, 0.1));
+            pointer-events: none;
+            transform: scale(0);
+            animation: clickRipplePremium 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.2) forwards;
+            z-index: 60;
+        }
+        
+        @keyframes clickRipplePremium {
+            0% {
+                transform: scale(0);
+                opacity: 0.7;
+                border: 1px solid rgba(120, 220, 255, 0.8);
+            }
+            100% {
+                transform: scale(3.5);
+                opacity: 0;
+                border: 1px solid rgba(100, 200, 240, 0);
+            }
+        }
+        
+        /* splash particles on click */
+        .splash-particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.95), rgba(100, 200, 255, 0.6));
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 55;
+            opacity: 0;
+            animation: splashFly var(--splash-duration, 0.6s) ease-out forwards;
+            width: var(--splash-size, 4px);
+            height: var(--splash-size, 4px);
+        }
+        
+        @keyframes splashFly {
+            0% {
+                transform: translate(0, 0) scale(0.2);
+                opacity: 0.9;
+            }
+            100% {
+                transform: translate(var(--splash-x, 30px), var(--splash-y, -40px)) scale(0.6);
+                opacity: 0;
+            }
+        }
+        
+        /* text styling */
+        .btn-text-core {
+            position: relative;
+            z-index: 20;
+            display: inline-block;
+            letter-spacing: -0.2px;
+            font-weight: 590;
+            transition: all 0.3s ease;
+        }
+        
+        .glass-ocean-btn:hover .btn-text-core {
+            letter-spacing: 0.2px;
+            text-shadow: 0 0 8px rgba(100, 200, 255, 0.5);
+        }
+        
+        /* responsive */
+        @media (max-width: 550px) {
+            .glass-ocean-btn {
+                padding: 0.8rem 1.6rem;
+                font-size: 1.1rem;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</a>
 
+<script>
+    (function() {
+        const button = document.getElementById('hydroButton');
+        if (!button) return;
+        
+        const rand = (min, max) => min + Math.random() * (max - min);
+        
+        // Premium droplet spawner
+        function spawnFlowingDroplet() {
+            const droplet = document.createElement('div');
+            droplet.className = 'aqua-droplet-item';
+            
+            const size = rand(4, 12);
+            const leftPos = rand(8, 92);
+            const duration = rand(1.4, 3.2);
+            const delay = rand(0, 2.5);
+            const drift = rand(-12, 14);
+            
+            droplet.style.setProperty('--drop-size', size + 'px');
+            droplet.style.setProperty('--drop-left', leftPos + '%');
+            droplet.style.setProperty('--drop-duration', duration + 's');
+            droplet.style.setProperty('--drop-delay', delay + 's');
+            droplet.style.setProperty('--drop-drift', drift + 'px');
+            
+            button.appendChild(droplet);
+            
+            setTimeout(() => {
+                if (droplet && droplet.remove) droplet.remove();
+            }, duration * 1000 + 300);
+        }
+        
+        // Floating bubble spawner (adds extra aquatic feel)
+        function spawnFloatingBubble() {
+            const bubble = document.createElement('div');
+            bubble.className = 'floating-bubble';
+            
+            const size = rand(3, 9);
+            const leftPos = rand(5, 95);
+            const duration = rand(1.2, 2.5);
+            const delay = rand(0, 3);
+            const drift = rand(-20, 20);
+            
+            bubble.style.setProperty('--bubble-size', size + 'px');
+            bubble.style.setProperty('--bubble-left', leftPos + '%');
+            bubble.style.setProperty('--bubble-duration', duration + 's');
+            bubble.style.setProperty('--bubble-delay', delay + 's');
+            bubble.style.setProperty('--bubble-drift', drift + 'px');
+            
+            button.appendChild(bubble);
+            
+            setTimeout(() => {
+                if (bubble && bubble.remove) bubble.remove();
+            }, duration * 1000 + 200);
+        }
+        
+        let dropletInterval;
+        let bubbleInterval;
+        
+        function startWaterEffects() {
+            if (dropletInterval) clearInterval(dropletInterval);
+            if (bubbleInterval) clearInterval(bubbleInterval);
+            
+            // Droplets every 0.8-1.5 seconds
+            dropletInterval = setInterval(() => {
+                if (!document.body.contains(button)) {
+                    clearInterval(dropletInterval);
+                    clearInterval(bubbleInterval);
+                    return;
+                }
+                const dropletCount = Math.floor(rand(1, 3));
+                for (let i = 0; i < dropletCount; i++) {
+                    setTimeout(() => spawnFlowingDroplet(), i * 120);
+                }
+            }, 1000);
+            
+            // Bubbles every 2-3 seconds
+            bubbleInterval = setInterval(() => {
+                if (!document.body.contains(button)) return;
+                if (Math.random() > 0.4) {
+                    setTimeout(() => spawnFloatingBubble(), rand(0, 200));
+                }
+            }, 2200);
+        }
+        
+        function initialEffects() {
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => spawnFlowingDroplet(), i * 220);
+            }
+            for (let i = 0; i < 4; i++) {
+                setTimeout(() => spawnFloatingBubble(), i * 400);
+            }
+        }
+        
+        startWaterEffects();
+        initialEffects();
+        
+        // Premium click effect with splash particles
+        button.addEventListener('click', function(event) {
+            const rect = button.getBoundingClientRect();
+            let clientX, clientY;
+            if (event.touches) {
+                clientX = event.touches[0].clientX;
+                clientY = event.touches[0].clientY;
+            } else {
+                clientX = event.clientX;
+                clientY = event.clientY;
+            }
+            const clickX = clientX - rect.left;
+            const clickY = clientY - rect.top;
+            
+            // Main ripple
+            const ripple = document.createElement('div');
+            ripple.className = 'click-water-ripple';
+            ripple.style.left = (clickX - 16) + 'px';
+            ripple.style.top = (clickY - 16) + 'px';
+            ripple.style.width = '32px';
+            ripple.style.height = '32px';
+            button.appendChild(ripple);
+            
+            // Splash particles (water burst)
+            const particleCount = 14;
+            for (let i = 0; i < particleCount; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'splash-particle';
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = rand(20, 70);
+                    const distX = Math.cos(angle) * speed;
+                    const distY = Math.sin(angle) * speed - 25;
+                    const size = rand(2, 7);
+                    
+                    particle.style.setProperty('--splash-x', distX + 'px');
+                    particle.style.setProperty('--splash-y', distY + 'px');
+                    particle.style.setProperty('--splash-size', size + 'px');
+                    particle.style.setProperty('--splash-duration', rand(0.5, 0.9) + 's');
+                    particle.style.left = (clickX - size/2) + 'px';
+                    particle.style.top = (clickY - size/2) + 'px';
+                    
+                    button.appendChild(particle);
+                    setTimeout(() => {
+                        if (particle && particle.remove) particle.remove();
+                    }, 900);
+                }, i * 25);
+            }
+            
+            // Extra droplets burst
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const burstDrop = document.createElement('div');
+                    burstDrop.className = 'aqua-droplet-item';
+                    burstDrop.style.setProperty('--drop-size', rand(3, 9) + 'px');
+                    burstDrop.style.left = (clickX - 5 + rand(-20, 20)) + 'px';
+                    burstDrop.style.top = (clickY - 8) + 'px';
+                    burstDrop.style.setProperty('--drop-duration', rand(0.7, 1.2) + 's');
+                    burstDrop.style.setProperty('--drop-drift', rand(-25, 25) + 'px');
+                    burstDrop.style.setProperty('--drop-delay', '0s');
+                    button.appendChild(burstDrop);
+                    setTimeout(() => {
+                        if (burstDrop && burstDrop.remove) burstDrop.remove();
+                    }, 1100);
+                }, i * 35);
+            }
+            
+            setTimeout(() => {
+                if (ripple && ripple.remove) ripple.remove();
+            }, 700);
+        });
+        
+        // Enhanced hover effect: extra droplets on hover
+        let hoverTimeout;
+        button.addEventListener('mouseenter', function() {
+            for (let i = 0; i < 4; i++) {
+                setTimeout(() => {
+                    const hoverDrop = document.createElement('div');
+                    hoverDrop.className = 'aqua-droplet-item';
+                    hoverDrop.style.setProperty('--drop-size', rand(3, 8) + 'px');
+                    hoverDrop.style.setProperty('--drop-left', rand(10, 90) + '%');
+                    hoverDrop.style.setProperty('--drop-duration', '1.0s');
+                    hoverDrop.style.setProperty('--drop-delay', '0s');
+                    hoverDrop.style.setProperty('--drop-drift', rand(-8, 8) + 'px');
+                    button.appendChild(hoverDrop);
+                    setTimeout(() => {
+                        if (hoverDrop && hoverDrop.remove) hoverDrop.remove();
+                    }, 1100);
+                }, i * 70);
+            }
+        });
+        
+        // Keep animations running if page gets hidden (optional)
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                // refresh a bit
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => spawnFlowingDroplet(), i * 150);
+                }
+            }
+        });
+    })();
+</script>
     </div>
 
 </section>
